@@ -76,7 +76,7 @@ export default function CreatePage() {
 
       {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-200)" }}
+        style={{ background: "var(--color-primary-100)" }}
         className="px-8 pt-6 pb-12"
       >
         {/* Nav */}

@@ -30,7 +30,7 @@ export default function TestPage() {
 
       {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-200)" }}
+        style={{ background: "var(--color-primary-100)" }}
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
         {/* Nav */}
@@ -104,7 +104,7 @@ export default function TestPage() {
               fontSize: 13,
               color: "#4ca749",
               border: "1.5px solid var(--color-primary-300)",
-              background: "var(--color-primary-200)",
+              background: "var(--color-primary-100)",
             }}
           >
             {activeTab === "talk" && "Voice integration coming soon"}
