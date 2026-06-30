@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 const FRAMEWORK_STEPS = [
   "Replace your IVR with the AI Front Desk agent that answers questions and route calls.",
@@ -34,7 +35,10 @@ export default function TestPage() {
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
         {/* Nav */}
-        <nav className="ds-text-sm-semibold flex items-center justify-center gap-5 mb-10">
+        <nav className="ds-text-sm-semibold relative flex items-center justify-center gap-5 mb-10">
+          <div className="absolute left-0">
+            <Logo />
+          </div>
           <Link href="/" className="transition-colors" style={{ color: "var(--color-primary-700)" }}>
             Create
           </Link>
@@ -68,24 +72,20 @@ export default function TestPage() {
 
           {/* Mode buttons */}
           <div className="flex justify-center gap-4 mb-8">
-            {(["talk", "chat"] as const).map((tab) => {
-              const active = activeTab === tab;
-              const isChat = tab === "chat";
-              return (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className="ds-text-sm-semibold rounded-full px-6 py-2.5 transition-colors cursor-pointer"
-                  style={{
-                    background: active || isChat ? "var(--color-primary-500)" : "var(--color-primary-50)",
-                    color: active || isChat ? "#fff" : "var(--color-primary-800)",
-                    border: active || isChat ? "1.5px solid var(--color-primary-500)" : "1.5px solid var(--color-primary-300)",
-                  }}
-                >
-                  {tab === "talk" ? "Talk with Agent" : "Chat with Agent"}
-                </button>
-              );
-            })}
+            {(["talk", "chat"] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className="ds-text-sm-semibold rounded-full px-6 py-2.5 transition-colors cursor-pointer"
+                style={{
+                  background: "var(--color-primary-500)",
+                  color: "#fff",
+                  border: "1.5px solid var(--color-primary-500)",
+                }}
+              >
+                {tab === "talk" ? "Talk with Agent" : "Chat with Agent"}
+              </button>
+            ))}
           </div>
 
           {/* iframe — only shown after a button is clicked */}

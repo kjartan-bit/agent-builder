@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Logo from "@/components/Logo";
 
 const BENEFITS = [
   { line1: "Handles All Calls", line2: "at Scale" },
@@ -80,7 +81,10 @@ export default function CreatePage() {
         className="px-8 pt-6 pb-12"
       >
         {/* Nav */}
-        <nav className="ds-text-sm-semibold flex items-center justify-center gap-5 mb-12">
+        <nav className="ds-text-sm-semibold relative flex items-center justify-center gap-5 mb-12">
+          <div className="absolute left-0">
+            <Logo />
+          </div>
           <span style={{ color: "var(--color-primary-900)" }}>Create</span>
           <span style={{ color: "var(--color-primary-400)" }}>|</span>
           <Link href="/test" className="transition-colors" style={{ color: "var(--color-primary-700)" }}>
