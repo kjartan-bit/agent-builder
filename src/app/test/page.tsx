@@ -50,7 +50,7 @@ export default function TestPage() {
           >
             Test the Agent's Reliability and Compliance
             <br />
-            While It Resolves Your Most Complex Tasks
+            While It Resolves Your Most Intricate Tasks
           </h1>
 
           {/* Agent selector */}
@@ -140,10 +140,6 @@ export default function TestPage() {
           >
             See all available features
           </a>
-
-          <p className="ds-text-xs-regular mt-6" style={{ color: "var(--color-neutral-500)" }}>
-            Make the framework a dialogue where we implement problems the step applies to.
-          </p>
         </div>
       </div>
     </div>
