@@ -74,19 +74,21 @@ export default function CreatePage() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-50)" }}>
 
-      {/* ── Hero ── primary-600 = #4B793E (brand green for large surfaces) */}
+      {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-600)" }}
+        style={{ background: "var(--color-primary-200)" }}
         className="px-8 pt-6 pb-12"
       >
-        {/* Nav — centred */}
+        {/* Nav */}
         <nav className="flex items-center justify-center gap-5 mb-12">
-          <span className="font-semibold text-white" style={{ fontSize: 15 }}>Create</span>
-          <span style={{ color: "var(--color-primary-400)" }}>|</span>
+          <span className="font-semibold" style={{ fontSize: 15, color: "var(--color-primary-900)" }}>
+            Create
+          </span>
+          <span style={{ color: "var(--color-primary-500)" }}>|</span>
           <Link
             href="/test"
             className="transition-colors"
-            style={{ fontSize: 15, color: "var(--color-primary-200)" }}
+            style={{ fontSize: 15, color: "var(--color-primary-700)" }}
           >
             Test
           </Link>
@@ -95,8 +97,8 @@ export default function CreatePage() {
         <div className="max-w-3xl mx-auto text-center">
           {/* Headline */}
           <h1
-            className="text-white font-bold mb-2"
-            style={{ fontSize: 30, lineHeight: 1.25 }}
+            className="font-bold mb-2"
+            style={{ fontSize: 30, lineHeight: 1.25, color: "var(--color-primary-900)" }}
           >
             Create an 11Sight AI Agent to Augment Your Workforce
           </h1>
@@ -104,7 +106,7 @@ export default function CreatePage() {
           {/* Subheadline */}
           <p
             className="mb-8 italic"
-            style={{ fontSize: 16, color: "var(--color-primary-200)" }}
+            style={{ fontSize: 16, color: "var(--color-primary-700)" }}
           >
             Grounded in Rigorous Software Engineering
           </p>
@@ -116,14 +118,14 @@ export default function CreatePage() {
                 key={b.line1}
                 className="rounded-xl p-5 flex flex-col items-center justify-center text-center"
                 style={{
-                  background: "var(--color-primary-700)",
-                  border: "1px solid var(--color-primary-500)",
+                  background: "var(--color-primary-100)",
+                  border: "1px solid var(--color-primary-300)",
                   minHeight: 80,
                 }}
               >
                 <p
-                  className="font-semibold text-white"
-                  style={{ fontSize: 14, lineHeight: 1.4 }}
+                  className="font-semibold"
+                  style={{ fontSize: 14, lineHeight: 1.4, color: "var(--color-primary-900)" }}
                 >
                   {b.line1}<br />{b.line2}
                 </p>
@@ -141,13 +143,13 @@ export default function CreatePage() {
               }}
               rows={3}
               placeholder="Create the agent with a single prompt..."
-              className="w-full rounded-xl px-5 py-4 pr-32 resize-none focus:outline-none shadow-lg placeholder:text-neutral-400"
+              className="w-full rounded-xl px-5 py-4 pr-32 resize-none focus:outline-none shadow-sm placeholder:text-neutral-400"
               style={{
                 fontSize: 15,
                 lineHeight: 1.6,
                 background: "#fff",
                 color: "var(--color-neutral-950)",
-                border: "1.5px solid var(--color-primary-400)",
+                border: "1.5px solid var(--color-primary-300)",
               }}
             />
             <button
@@ -156,7 +158,7 @@ export default function CreatePage() {
               className="absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 font-semibold transition-all cursor-pointer disabled:opacity-40"
               style={{
                 fontSize: 13,
-                background: "var(--color-primary-500)",
+                background: "var(--color-primary-600)",
                 color: "#fff",
               }}
             >
@@ -172,19 +174,19 @@ export default function CreatePage() {
             </button>
           </div>
           {error && (
-            <p className="mt-2" style={{ fontSize: 13, color: "#fca5a5" }}>{error}</p>
+            <p className="mt-2" style={{ fontSize: 13, color: "var(--color-primary-800)" }}>{error}</p>
           )}
         </div>
       </div>
 
-      {/* ── Questionnaire section ── */}
-      <div className="flex-1 px-6 py-8">
+      {/* ── Questionnaire section — neutral-50 ── */}
+      <div className="flex-1 px-6 py-8" style={{ background: "var(--color-neutral-50)" }}>
         <div className="max-w-6xl mx-auto">
           <p
             className="text-center font-medium mb-5"
             style={{ fontSize: 15, color: "var(--color-neutral-600)" }}
           >
-            Customize the agent by ticking features on/off and specify task workflows
+            Customize the Agent by Ticking Features On/Off and Specify Task Workflows
           </p>
 
           <div

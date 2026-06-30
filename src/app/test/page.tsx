@@ -26,30 +26,27 @@ export default function TestPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-25)" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-50)" }}>
 
-      {/* ── Hero ── */}
+      {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-600)" }}
+        style={{ background: "var(--color-primary-200)" }}
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
+        {/* Nav */}
         <nav className="flex items-center justify-center gap-5 mb-10">
           <Link
             href="/"
-            className="text-white/50 hover:text-white/80 transition-colors"
-            style={{ fontSize: 15 }}
+            className="transition-colors"
+            style={{ fontSize: 15, color: "var(--color-primary-700)" }}
           >
             Create
           </Link>
-          <span className="text-white/30">|</span>
-          <span className="text-white font-semibold" style={{ fontSize: 15 }}>
+          <span style={{ color: "var(--color-primary-500)" }}>|</span>
+          <span className="font-semibold" style={{ fontSize: 15, color: "var(--color-primary-900)" }}>
             Test
           </span>
         </nav>
-
-        <div className="absolute top-6 right-8 text-white/20 italic select-none" style={{ fontSize: 12 }}>
-          &lt;background graphics of Serena&gt;
-        </div>
 
         <div className="max-w-xl mx-auto text-center">
           {/* Agent selector */}
@@ -57,16 +54,19 @@ export default function TestPage() {
             className="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-8 transition-colors cursor-pointer"
             style={{
               fontSize: 14,
-              color: "var(--color-primary-100)",
-              border: "1.5px solid var(--color-primary-600)",
-              background: "var(--color-primary-900)",
+              color: "var(--color-primary-800)",
+              border: "1.5px solid var(--color-primary-400)",
+              background: "var(--color-primary-100)",
             }}
           >
             {agentName}
             <span className="opacity-60 text-xs">▾</span>
           </button>
 
-          <h1 className="text-white font-bold mb-8" style={{ fontSize: 24, lineHeight: 1.4 }}>
+          <h1
+            className="font-bold mb-8"
+            style={{ fontSize: 24, lineHeight: 1.4, color: "var(--color-primary-900)" }}
+          >
             Test the Agent's Reliability and Compliance
             <br />
             While It Resolves Your Most Complex Tasks
@@ -83,14 +83,14 @@ export default function TestPage() {
                   className="rounded-full px-6 py-2.5 font-semibold transition-colors cursor-pointer"
                   style={{
                     fontSize: 14,
-                    background: active ? "#fff" : "var(--color-primary-900)",
-                    color: active ? "var(--color-primary-800)" : "var(--color-primary-200)",
+                    background: active ? "var(--color-primary-700)" : "var(--color-primary-100)",
+                    color: active ? "#fff" : "var(--color-primary-800)",
                     border: active
-                      ? "1.5px solid #fff"
-                      : "1.5px solid var(--color-primary-600)",
+                      ? "1.5px solid var(--color-primary-700)"
+                      : "1.5px solid var(--color-primary-300)",
                   }}
                 >
-                  {tab === "talk" ? "Talk with agent" : "Chat with agent"}
+                  {tab === "talk" ? "Talk with Agent" : "Chat with Agent"}
                 </button>
               );
             })}
@@ -102,9 +102,9 @@ export default function TestPage() {
             style={{
               minHeight: 160,
               fontSize: 13,
-              color: "var(--color-primary-400)",
-              border: "1.5px solid var(--color-primary-700)",
-              background: "var(--color-primary-950)",
+              color: "var(--color-primary-600)",
+              border: "1.5px solid var(--color-primary-300)",
+              background: "var(--color-primary-50)",
             }}
           >
             {activeTab === "talk" && "Voice integration coming soon"}
@@ -114,7 +114,7 @@ export default function TestPage() {
         </div>
       </div>
 
-      {/* ── Framework section ── */}
+      {/* ── Framework section — neutral-50 ── */}
       <div className="flex-1 px-8 py-10" style={{ background: "var(--color-neutral-50)" }}>
         <div className="max-w-2xl mx-auto">
           <h2
