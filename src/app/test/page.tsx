@@ -26,11 +26,11 @@ export default function TestPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-50)" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-25)" }}>
 
       {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-200)" }}
+        style={{ background: "var(--color-primary-50)" }}
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
         {/* Nav */}
@@ -38,7 +38,7 @@ export default function TestPage() {
           <Link
             href="/"
             className="transition-colors"
-            style={{ fontSize: 15, color: "var(--color-primary-700)" }}
+            style={{ fontSize: 15, color: "#4ca749" }}
           >
             Create
           </Link>
@@ -83,10 +83,10 @@ export default function TestPage() {
                   className="rounded-full px-6 py-2.5 font-semibold transition-colors cursor-pointer"
                   style={{
                     fontSize: 14,
-                    background: active ? "var(--color-primary-700)" : "var(--color-primary-100)",
+                    background: active ? "#4ca749" : "var(--color-primary-100)",
                     color: active ? "#fff" : "var(--color-primary-800)",
                     border: active
-                      ? "1.5px solid var(--color-primary-700)"
+                      ? "1.5px solid #4ca749"
                       : "1.5px solid var(--color-primary-300)",
                   }}
                 >
@@ -102,7 +102,7 @@ export default function TestPage() {
             style={{
               minHeight: 160,
               fontSize: 13,
-              color: "var(--color-primary-600)",
+              color: "#4ca749",
               border: "1.5px solid var(--color-primary-300)",
               background: "var(--color-primary-50)",
             }}
@@ -115,7 +115,7 @@ export default function TestPage() {
       </div>
 
       {/* ── Framework section — neutral-50 ── */}
-      <div className="flex-1 px-8 py-10" style={{ background: "var(--color-neutral-50)" }}>
+      <div className="flex-1 px-8 py-10" style={{ background: "var(--color-neutral-25)" }}>
         <div className="max-w-2xl mx-auto">
           <h2
             className="font-bold mb-6"
@@ -133,7 +133,7 @@ export default function TestPage() {
               >
                 <span
                   className="font-bold shrink-0 w-5 text-right"
-                  style={{ color: "var(--color-primary-600)" }}
+                  style={{ color: "#4ca749" }}
                 >
                   {i + 1}.
                 </span>
@@ -145,7 +145,7 @@ export default function TestPage() {
           <a
             href="#"
             className="underline underline-offset-2"
-            style={{ fontSize: 13, color: "var(--color-primary-600)" }}
+            style={{ fontSize: 13, color: "#4ca749" }}
           >
             See all available features
           </a>

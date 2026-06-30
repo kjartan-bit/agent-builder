@@ -72,11 +72,11 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-50)" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-25)" }}>
 
       {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-200)" }}
+        style={{ background: "var(--color-primary-50)" }}
         className="px-8 pt-6 pb-12"
       >
         {/* Nav */}
@@ -158,7 +158,7 @@ export default function CreatePage() {
               className="absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 font-semibold transition-all cursor-pointer disabled:opacity-40"
               style={{
                 fontSize: 13,
-                background: "var(--color-primary-600)",
+                background: "#4ca749",
                 color: "#fff",
               }}
             >
@@ -180,7 +180,7 @@ export default function CreatePage() {
       </div>
 
       {/* ── Questionnaire section — neutral-50 ── */}
-      <div className="flex-1 px-6 py-8" style={{ background: "var(--color-neutral-50)" }}>
+      <div className="flex-1 px-6 py-8" style={{ background: "var(--color-neutral-25)" }}>
         <div className="max-w-6xl mx-auto">
           <p
             className="text-center font-medium mb-5"
@@ -212,7 +212,7 @@ export default function CreatePage() {
               className="rounded-full px-8 py-2.5 font-semibold transition-colors cursor-pointer shadow-sm"
               style={{
                 fontSize: 14,
-                background: "var(--color-primary-600)",
+                background: "#4ca749",
                 color: "#fff",
               }}
             >
