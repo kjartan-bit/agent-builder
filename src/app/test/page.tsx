@@ -70,15 +70,16 @@ export default function TestPage() {
           <div className="flex justify-center gap-4 mb-8">
             {(["talk", "chat"] as const).map((tab) => {
               const active = activeTab === tab;
+              const isChat = tab === "chat";
               return (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className="ds-text-sm-semibold rounded-full px-6 py-2.5 transition-colors cursor-pointer"
                   style={{
-                    background: active ? "var(--color-primary-500)" : "var(--color-primary-50)",
-                    color: active ? "#fff" : "var(--color-primary-800)",
-                    border: active ? "1.5px solid var(--color-primary-500)" : "1.5px solid var(--color-primary-300)",
+                    background: active || isChat ? "var(--color-primary-500)" : "var(--color-primary-50)",
+                    color: active || isChat ? "#fff" : "var(--color-primary-800)",
+                    border: active || isChat ? "1.5px solid var(--color-primary-500)" : "1.5px solid var(--color-primary-300)",
                   }}
                 >
                   {tab === "talk" ? "Talk with Agent" : "Chat with Agent"}
