@@ -26,11 +26,11 @@ export default function TestPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-25)" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#FFFFFF" }}>
 
       {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-50)" }}
+        style={{ background: "var(--color-primary-200)" }}
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
         {/* Nav */}
@@ -104,7 +104,7 @@ export default function TestPage() {
               fontSize: 13,
               color: "#4ca749",
               border: "1.5px solid var(--color-primary-300)",
-              background: "var(--color-primary-50)",
+              background: "var(--color-primary-200)",
             }}
           >
             {activeTab === "talk" && "Voice integration coming soon"}
@@ -115,7 +115,7 @@ export default function TestPage() {
       </div>
 
       {/* ── Framework section — neutral-50 ── */}
-      <div className="flex-1 px-8 py-10" style={{ background: "var(--color-neutral-25)" }}>
+      <div className="flex-1 px-8 py-10" style={{ background: "#FFFFFF" }}>
         <div className="max-w-2xl mx-auto">
           <h2
             className="font-bold mb-6"

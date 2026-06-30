@@ -72,11 +72,11 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-25)" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#FFFFFF" }}>
 
       {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
       <div
-        style={{ background: "var(--color-primary-50)" }}
+        style={{ background: "var(--color-primary-200)" }}
         className="px-8 pt-6 pb-12"
       >
         {/* Nav */}
@@ -180,7 +180,7 @@ export default function CreatePage() {
       </div>
 
       {/* ── Questionnaire section — neutral-50 ── */}
-      <div className="flex-1 px-6 py-8" style={{ background: "var(--color-neutral-25)" }}>
+      <div className="flex-1 px-6 py-8" style={{ background: "#FFFFFF" }}>
         <div className="max-w-6xl mx-auto">
           <p
             className="text-center font-medium mb-5"
