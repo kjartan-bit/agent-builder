@@ -33,7 +33,7 @@ export default function TestPage() {
         style={{ background: "var(--color-primary-600)" }}
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
-        <nav className="flex items-center gap-5 mb-10">
+        <nav className="flex items-center justify-center gap-5 mb-10">
           <Link
             href="/"
             className="text-white/50 hover:text-white/80 transition-colors"
@@ -67,9 +67,9 @@ export default function TestPage() {
           </button>
 
           <h1 className="text-white font-bold mb-8" style={{ fontSize: 24, lineHeight: 1.4 }}>
-            Test the agents reliability and compliance
+            Test the Agent's Reliability and Compliance
             <br />
-            while it resolves your most complex tasks
+            While It Resolves Your Most Complex Tasks
           </h1>
 
           {/* Mode buttons */}
@@ -121,7 +121,7 @@ export default function TestPage() {
             className="font-bold mb-6"
             style={{ fontSize: 20, lineHeight: 1.35, color: "var(--color-neutral-950)" }}
           >
-            Controlled onboarding framework for reliable and compliant AI Voice Agents
+            Controlled Onboarding Framework for Reliable and Compliant AI Voice Agents
           </h2>
 
           <ol className="space-y-4 mb-7">

@@ -5,18 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const BENEFITS = [
-  {
-    title: "Handles all calls at scale",
-    desc: "Answers every inbound call instantly, 24/7, without queues or wait times.",
-  },
-  {
-    title: "Resolves the most complex tasks",
-    desc: "Navigates multi-step workflows and edge cases with specialist-level accuracy.",
-  },
-  {
-    title: "Maintaining CSAT w/ AI Personas",
-    desc: "Sounds human, stays on-brand, and keeps customer satisfaction scores high.",
-  },
+  { line1: "Handles All Calls", line2: "at Scale" },
+  { line1: "Resolves the Most", line2: "Complex Tasks" },
+  { line1: "Maintaining CSAT", line2: "w/ AI Personas" },
 ];
 
 export default function CreatePage() {
@@ -88,8 +79,8 @@ export default function CreatePage() {
         style={{ background: "var(--color-primary-600)" }}
         className="px-8 pt-6 pb-12"
       >
-        {/* Nav */}
-        <nav className="flex items-center gap-5 mb-12">
+        {/* Nav — centred */}
+        <nav className="flex items-center justify-center gap-5 mb-12">
           <span className="font-semibold text-white" style={{ fontSize: 15 }}>Create</span>
           <span style={{ color: "var(--color-primary-400)" }}>|</span>
           <Link
@@ -101,13 +92,13 @@ export default function CreatePage() {
           </Link>
         </nav>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto text-center">
           {/* Headline */}
           <h1
             className="text-white font-bold mb-2"
             style={{ fontSize: 30, lineHeight: 1.25 }}
           >
-            Create an 11Sight AI Agent to augment your workforce
+            Create an 11Sight AI Agent to Augment Your Workforce
           </h1>
 
           {/* Subheadline */}
@@ -115,30 +106,26 @@ export default function CreatePage() {
             className="mb-8 italic"
             style={{ fontSize: 16, color: "var(--color-primary-200)" }}
           >
-            grounded in rigorous software engineering
+            Grounded in Rigorous Software Engineering
           </p>
 
           {/* Benefit boxes */}
           <div className="grid grid-cols-3 gap-4 mb-8">
             {BENEFITS.map((b) => (
               <div
-                key={b.title}
-                className="rounded-xl p-4"
+                key={b.line1}
+                className="rounded-xl p-5 flex flex-col items-center justify-center text-center"
                 style={{
                   background: "var(--color-primary-700)",
                   border: "1px solid var(--color-primary-500)",
+                  minHeight: 80,
                 }}
               >
                 <p
-                  className="font-semibold text-white mb-1"
-                  style={{ fontSize: 14, lineHeight: 1.35 }}
+                  className="font-semibold text-white"
+                  style={{ fontSize: 14, lineHeight: 1.4 }}
                 >
-                  {b.title}
-                </p>
-                <p
-                  style={{ fontSize: 12, lineHeight: 1.5, color: "var(--color-primary-300)" }}
-                >
-                  {b.desc}
+                  {b.line1}<br />{b.line2}
                 </p>
               </div>
             ))}
