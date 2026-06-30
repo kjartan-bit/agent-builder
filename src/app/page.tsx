@@ -98,7 +98,7 @@ export default function CreatePage() {
           {/* Headline */}
           <h1
             className="font-bold mb-2"
-            style={{ fontSize: 30, lineHeight: 1.25, color: "var(--color-primary-900)" }}
+            style={{ fontSize: 30, lineHeight: 1.25, color: "#263238" }}
           >
             Create an 11Sight AI Agent to Augment Your Workforce
           </h1>
@@ -106,7 +106,7 @@ export default function CreatePage() {
           {/* Subheadline */}
           <p
             className="mb-8 italic"
-            style={{ fontSize: 16, color: "var(--color-primary-700)" }}
+            style={{ fontSize: 16, color: "#263238" }}
           >
             Grounded in Rigorous Software Engineering
           </p>

@@ -65,7 +65,7 @@ export default function TestPage() {
 
           <h1
             className="font-bold mb-8"
-            style={{ fontSize: 24, lineHeight: 1.4, color: "var(--color-primary-900)" }}
+            style={{ fontSize: 24, lineHeight: 1.4, color: "#263238" }}
           >
             Test the Agent's Reliability and Compliance
             <br />
