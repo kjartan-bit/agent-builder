@@ -26,46 +26,40 @@ export default function TestPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#FFFFFF" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#ffffff" }}>
 
-      {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
+      {/* ── Hero ── */}
       <div
         style={{ background: "var(--color-primary-100)" }}
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
         {/* Nav */}
-        <nav className="flex items-center justify-center gap-5 mb-10">
-          <Link
-            href="/"
-            className="transition-colors"
-            style={{ fontSize: 15, color: "#4ca749" }}
-          >
+        <nav className="ds-text-sm-semibold flex items-center justify-center gap-5 mb-10">
+          <Link href="/" className="transition-colors" style={{ color: "var(--color-primary-700)" }}>
             Create
           </Link>
-          <span style={{ color: "var(--color-primary-500)" }}>|</span>
-          <span className="font-semibold" style={{ fontSize: 15, color: "var(--color-primary-900)" }}>
-            Test
-          </span>
+          <span style={{ color: "var(--color-primary-400)" }}>|</span>
+          <span style={{ color: "var(--color-primary-900)" }}>Test</span>
         </nav>
 
         <div className="max-w-xl mx-auto text-center">
           {/* Agent selector */}
           <button
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2 mb-8 transition-colors cursor-pointer"
+            className="ds-text-sm-medium inline-flex items-center gap-2 rounded-full px-5 py-2 mb-8 transition-colors cursor-pointer"
             style={{
-              fontSize: 14,
               color: "var(--color-primary-800)",
-              border: "1.5px solid var(--color-primary-400)",
-              background: "var(--color-primary-100)",
+              border: "1.5px solid var(--color-primary-300)",
+              background: "var(--color-primary-50)",
             }}
           >
             {agentName}
             <span className="opacity-60 text-xs">▾</span>
           </button>
 
+          {/* Headline — display-xs bold */}
           <h1
-            className="font-bold mb-8"
-            style={{ fontSize: 24, lineHeight: 1.4, color: "#263238" }}
+            className="ds-display-xs-bold mb-8"
+            style={{ color: "#263238" }}
           >
             Test the Agent's Reliability and Compliance
             <br />
@@ -80,14 +74,11 @@ export default function TestPage() {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className="rounded-full px-6 py-2.5 font-semibold transition-colors cursor-pointer"
+                  className="ds-text-sm-semibold rounded-full px-6 py-2.5 transition-colors cursor-pointer"
                   style={{
-                    fontSize: 14,
-                    background: active ? "#4ca749" : "var(--color-primary-100)",
+                    background: active ? "#4ca749" : "var(--color-primary-50)",
                     color: active ? "#fff" : "var(--color-primary-800)",
-                    border: active
-                      ? "1.5px solid #4ca749"
-                      : "1.5px solid var(--color-primary-300)",
+                    border: active ? "1.5px solid #4ca749" : "1.5px solid var(--color-primary-300)",
                   }}
                 >
                   {tab === "talk" ? "Talk with Agent" : "Chat with Agent"}
@@ -98,13 +89,12 @@ export default function TestPage() {
 
           {/* iframe / placeholder */}
           <div
-            className="rounded-2xl flex items-center justify-center italic"
+            className="ds-text-sm-regular rounded-2xl flex items-center justify-center italic"
             style={{
               minHeight: 160,
-              fontSize: 13,
-              color: "#4ca749",
-              border: "1.5px solid var(--color-primary-300)",
-              background: "var(--color-primary-100)",
+              color: "var(--color-primary-600)",
+              border: "1.5px solid var(--color-primary-200)",
+              background: "var(--color-primary-25)",
             }}
           >
             {activeTab === "talk" && "Voice integration coming soon"}
@@ -114,12 +104,12 @@ export default function TestPage() {
         </div>
       </div>
 
-      {/* ── Framework section — neutral-50 ── */}
-      <div className="flex-1 px-8 py-10" style={{ background: "#FFFFFF" }}>
+      {/* ── Framework section ── */}
+      <div className="flex-1 px-8 py-10" style={{ background: "#ffffff" }}>
         <div className="max-w-2xl mx-auto">
           <h2
-            className="font-bold mb-6"
-            style={{ fontSize: 20, lineHeight: 1.35, color: "var(--color-neutral-950)" }}
+            className="ds-display-xs-semibold mb-6"
+            style={{ color: "var(--color-neutral-950)" }}
           >
             Controlled Onboarding Framework for Reliable and Compliant AI Voice Agents
           </h2>
@@ -128,11 +118,11 @@ export default function TestPage() {
             {FRAMEWORK_STEPS.map((step, i) => (
               <li
                 key={i}
-                className="flex gap-3"
-                style={{ fontSize: 14, lineHeight: 1.6, color: "var(--color-neutral-700)" }}
+                className="ds-text-sm-regular flex gap-3"
+                style={{ color: "var(--color-neutral-700)" }}
               >
                 <span
-                  className="font-bold shrink-0 w-5 text-right"
+                  className="ds-text-sm-bold shrink-0 w-5 text-right"
                   style={{ color: "#4ca749" }}
                 >
                   {i + 1}.
@@ -144,13 +134,13 @@ export default function TestPage() {
 
           <a
             href="#"
-            className="underline underline-offset-2"
-            style={{ fontSize: 13, color: "#4ca749" }}
+            className="ds-text-sm-underlined"
+            style={{ color: "#4ca749" }}
           >
             See all available features
           </a>
 
-          <p className="mt-6" style={{ fontSize: 13, color: "var(--color-neutral-500)" }}>
+          <p className="ds-text-xs-regular mt-6" style={{ color: "var(--color-neutral-500)" }}>
             Make the framework a dialogue where we implement problems the step applies to.
           </p>
         </div>

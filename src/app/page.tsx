@@ -72,41 +72,35 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#FFFFFF" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "#ffffff" }}>
 
-      {/* ── Hero — primary-200 (#CBE5C7) light green ── */}
+      {/* ── Hero ── */}
       <div
         style={{ background: "var(--color-primary-100)" }}
         className="px-8 pt-6 pb-12"
       >
         {/* Nav */}
-        <nav className="flex items-center justify-center gap-5 mb-12">
-          <span className="font-semibold" style={{ fontSize: 15, color: "var(--color-primary-900)" }}>
-            Create
-          </span>
-          <span style={{ color: "var(--color-primary-500)" }}>|</span>
-          <Link
-            href="/test"
-            className="transition-colors"
-            style={{ fontSize: 15, color: "var(--color-primary-700)" }}
-          >
+        <nav className="ds-text-sm-semibold flex items-center justify-center gap-5 mb-12">
+          <span style={{ color: "var(--color-primary-900)" }}>Create</span>
+          <span style={{ color: "var(--color-primary-400)" }}>|</span>
+          <Link href="/test" className="transition-colors" style={{ color: "var(--color-primary-700)" }}>
             Test
           </Link>
         </nav>
 
         <div className="max-w-3xl mx-auto text-center">
-          {/* Headline */}
+          {/* Headline — display-sm bold */}
           <h1
-            className="font-bold mb-2"
-            style={{ fontSize: 30, lineHeight: 1.25, color: "#263238" }}
+            className="ds-display-sm-bold mb-2"
+            style={{ color: "#263238" }}
           >
             Create an 11Sight AI Agent to Augment Your Workforce
           </h1>
 
-          {/* Subheadline */}
+          {/* Subheadline — text-lg medium italic */}
           <p
-            className="mb-8 italic"
-            style={{ fontSize: 16, color: "#263238" }}
+            className="ds-text-lg-medium-italic mb-8"
+            style={{ color: "#263238" }}
           >
             Grounded in Rigorous Software Engineering
           </p>
@@ -118,14 +112,14 @@ export default function CreatePage() {
                 key={b.line1}
                 className="rounded-xl p-5 flex flex-col items-center justify-center text-center"
                 style={{
-                  background: "var(--color-primary-100)",
-                  border: "1px solid var(--color-primary-300)",
+                  background: "var(--color-primary-50)",
+                  border: "1px solid var(--color-primary-200)",
                   minHeight: 80,
                 }}
               >
                 <p
-                  className="font-semibold"
-                  style={{ fontSize: 14, lineHeight: 1.4, color: "var(--color-primary-900)" }}
+                  className="ds-text-sm-semibold"
+                  style={{ color: "var(--color-primary-900)" }}
                 >
                   {b.line1}<br />{b.line2}
                 </p>
@@ -143,10 +137,8 @@ export default function CreatePage() {
               }}
               rows={3}
               placeholder="Create the agent with a single prompt..."
-              className="w-full rounded-xl px-5 py-4 pr-32 resize-none focus:outline-none shadow-sm placeholder:text-neutral-400"
+              className="ds-text-md-regular w-full rounded-xl px-5 py-4 pr-32 resize-none focus:outline-none shadow-sm placeholder:text-neutral-400"
               style={{
-                fontSize: 15,
-                lineHeight: 1.6,
                 background: "#fff",
                 color: "var(--color-neutral-950)",
                 border: "1.5px solid var(--color-primary-300)",
@@ -155,12 +147,8 @@ export default function CreatePage() {
             <button
               onClick={handleSubmit}
               disabled={loading || !prompt.trim()}
-              className="absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 font-semibold transition-all cursor-pointer disabled:opacity-40"
-              style={{
-                fontSize: 13,
-                background: "#4ca749",
-                color: "#fff",
-              }}
+              className="ds-text-sm-semibold absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 transition-all cursor-pointer disabled:opacity-40"
+              style={{ background: "#4ca749", color: "#fff" }}
             >
               {loading ? (
                 <span className="flex items-center gap-1.5">
@@ -174,17 +162,17 @@ export default function CreatePage() {
             </button>
           </div>
           {error && (
-            <p className="mt-2" style={{ fontSize: 13, color: "var(--color-primary-800)" }}>{error}</p>
+            <p className="ds-text-sm-regular mt-2" style={{ color: "var(--color-primary-800)" }}>{error}</p>
           )}
         </div>
       </div>
 
-      {/* ── Questionnaire section — neutral-50 ── */}
-      <div className="flex-1 px-6 py-8" style={{ background: "#FFFFFF" }}>
+      {/* ── Questionnaire section ── */}
+      <div className="flex-1 px-6 py-8" style={{ background: "#ffffff" }}>
         <div className="max-w-6xl mx-auto">
           <p
-            className="text-center font-medium mb-5"
-            style={{ fontSize: 15, color: "var(--color-neutral-600)" }}
+            className="ds-text-md-medium text-center mb-5"
+            style={{ color: "var(--color-neutral-600)" }}
           >
             Customize the Agent by Ticking Features On/Off and Specify Task Workflows
           </p>
@@ -209,12 +197,8 @@ export default function CreatePage() {
           <div className="flex justify-center mt-6">
             <button
               onClick={handleSaveAndTest}
-              className="rounded-full px-8 py-2.5 font-semibold transition-colors cursor-pointer shadow-sm"
-              style={{
-                fontSize: 14,
-                background: "#4ca749",
-                color: "#fff",
-              }}
+              className="ds-text-sm-semibold rounded-full px-8 py-2.5 transition-colors cursor-pointer shadow-sm"
+              style={{ background: "#4ca749", color: "#fff" }}
             >
               Save and Test Agent
             </button>
