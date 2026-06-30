@@ -148,7 +148,7 @@ export default function CreatePage() {
               onClick={handleSubmit}
               disabled={loading || !prompt.trim()}
               className="ds-text-sm-semibold absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 transition-all cursor-pointer disabled:opacity-40"
-              style={{ background: "#4ca749", color: "#fff" }}
+              style={{ background: "var(--color-primary-500)", color: "#fff" }}
             >
               {loading ? (
                 <span className="flex items-center gap-1.5">
@@ -198,7 +198,7 @@ export default function CreatePage() {
             <button
               onClick={handleSaveAndTest}
               className="ds-text-sm-semibold rounded-full px-8 py-2.5 transition-colors cursor-pointer shadow-sm"
-              style={{ background: "#4ca749", color: "#fff" }}
+              style={{ background: "var(--color-primary-500)", color: "#fff" }}
             >
               Save and Test Agent
             </button>

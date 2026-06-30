@@ -76,9 +76,9 @@ export default function TestPage() {
                   onClick={() => setActiveTab(tab)}
                   className="ds-text-sm-semibold rounded-full px-6 py-2.5 transition-colors cursor-pointer"
                   style={{
-                    background: active ? "#4ca749" : "var(--color-primary-50)",
+                    background: active ? "var(--color-primary-500)" : "var(--color-primary-50)",
                     color: active ? "#fff" : "var(--color-primary-800)",
-                    border: active ? "1.5px solid #4ca749" : "1.5px solid var(--color-primary-300)",
+                    border: active ? "1.5px solid var(--color-primary-500)" : "1.5px solid var(--color-primary-300)",
                   }}
                 >
                   {tab === "talk" ? "Talk with Agent" : "Chat with Agent"}
@@ -123,7 +123,7 @@ export default function TestPage() {
               >
                 <span
                   className="ds-text-sm-bold shrink-0 w-5 text-right"
-                  style={{ color: "#4ca749" }}
+                  style={{ color: "var(--color-primary-500)" }}
                 >
                   {i + 1}.
                 </span>
@@ -135,7 +135,7 @@ export default function TestPage() {
           <a
             href="#"
             className="ds-text-sm-underlined"
-            style={{ color: "#4ca749" }}
+            style={{ color: "var(--color-primary-500)" }}
           >
             See all available features
           </a>
