@@ -4,8 +4,6 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const HERO_GREEN = "#3A5E31";
-
 const PILLS = [
   "Handles all calls at scale",
   "Resolves the most complex tasks",
@@ -74,62 +72,55 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-100">
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-25)" }}>
 
       {/* ── Hero ── */}
       <div
-        style={{ backgroundColor: HERO_GREEN }}
-        className="relative overflow-hidden px-8 pt-6 pb-14"
+        style={{ background: "var(--color-primary-800)" }}
+        className="relative px-8 pt-6 pb-16 overflow-hidden"
       >
-        {/* Nav */}
-        <nav className="flex items-center gap-5 mb-10">
-          <span className="text-white font-semibold" style={{ fontSize: 15 }}>
-            Create
-          </span>
-          <span className="text-white/40">|</span>
-          <Link
-            href="/test"
-            className="text-white/60 hover:text-white transition-colors"
-            style={{ fontSize: 15 }}
-          >
+        <nav className="flex items-center gap-5 mb-12">
+          <span className="text-white font-semibold" style={{ fontSize: 15 }}>Create</span>
+          <span className="text-white/30">|</span>
+          <Link href="/test" className="text-white/50 hover:text-white/80 transition-colors" style={{ fontSize: 15 }}>
             Test
           </Link>
         </nav>
 
-        {/* Background label placeholder */}
-        <p
-          className="absolute top-6 right-8 text-white/25 italic select-none"
-          style={{ fontSize: 12 }}
-        >
+        <div className="absolute top-6 right-8 text-white/20 italic select-none" style={{ fontSize: 12 }}>
           &lt;background graphics of Serena&gt;
-        </p>
+        </div>
 
-        {/* Copy + prompt */}
-        <div className="max-w-xl mx-auto text-center">
-          <h1
-            className="text-white font-bold mb-2"
-            style={{ fontSize: 26, lineHeight: 1.35 }}
-          >
+        <div className="max-w-2xl mx-auto text-center">
+          <h1 className="text-white font-bold mb-2" style={{ fontSize: 28, lineHeight: 1.3 }}>
             Generate an 11Sight AI Agent to augment your workforce
           </h1>
-          <p className="text-white/70 italic mb-7" style={{ fontSize: 16 }}>
+          <p className="italic mb-8" style={{ fontSize: 16, color: "var(--color-primary-300)" }}>
             -grounded in rigorous software engineering-
           </p>
 
-          {/* Pills */}
-          <div className="flex flex-wrap justify-center gap-2 mb-7">
+          <div className="flex flex-wrap justify-center gap-2">
             {PILLS.map((p) => (
               <span
                 key={p}
-                className="text-white border border-white/40 rounded-full px-4 py-1.5 bg-white/10"
-                style={{ fontSize: 13 }}
+                className="border rounded-full px-4 py-1.5"
+                style={{
+                  fontSize: 13,
+                  color: "var(--color-primary-200)",
+                  borderColor: "var(--color-primary-600)",
+                  background: "var(--color-primary-900)",
+                }}
               >
                 {p}
               </span>
             ))}
           </div>
+        </div>
+      </div>
 
-          {/* Prompt box */}
+      {/* ── Prompt section ── */}
+      <div className="px-8 py-8" style={{ background: "var(--color-primary-900)" }}>
+        <div className="max-w-3xl mx-auto">
           <div className="relative">
             <textarea
               value={prompt}
@@ -139,45 +130,57 @@ export default function CreatePage() {
               }}
               rows={3}
               placeholder="Create the agent with a single prompt..."
-              className="w-full rounded-xl bg-white text-neutral-900 px-5 py-4 pr-28 resize-none focus:outline-none shadow-md placeholder:text-neutral-400"
-              style={{ fontSize: 14, lineHeight: 1.6 }}
+              className="w-full rounded-xl px-5 py-4 pr-32 resize-none focus:outline-none shadow-lg placeholder:text-neutral-400"
+              style={{
+                fontSize: 15,
+                lineHeight: 1.6,
+                background: "#fff",
+                color: "var(--color-neutral-950)",
+                border: "1.5px solid var(--color-primary-700)",
+              }}
             />
             <button
               onClick={handleSubmit}
               disabled={loading || !prompt.trim()}
-              className="absolute bottom-3.5 right-3.5 border border-neutral-300 rounded-full px-5 py-1.5 text-neutral-700 bg-white hover:bg-neutral-50 disabled:opacity-40 transition-colors cursor-pointer font-medium"
-              style={{ fontSize: 13 }}
+              className="absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 font-semibold transition-colors cursor-pointer disabled:opacity-40"
+              style={{
+                fontSize: 13,
+                background: "var(--color-primary-500)",
+                color: "#fff",
+                border: "none",
+              }}
             >
-              {loading ? "…" : "Submit"}
+              {loading ? (
+                <span className="flex items-center gap-1.5">
+                  <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                  </svg>
+                  Generating
+                </span>
+              ) : "Submit"}
             </button>
           </div>
-
-          {error && (
-            <p className="text-red-300 mt-2 text-sm">{error}</p>
-          )}
+          {error && <p className="mt-2 text-red-400" style={{ fontSize: 13 }}>{error}</p>}
         </div>
       </div>
 
       {/* ── Questionnaire section ── */}
-      <div className="flex-1 px-8 py-10">
-        <div className="max-w-3xl mx-auto">
-          <p
-            className="text-center text-neutral-700 font-medium mb-6"
-            style={{ fontSize: 15 }}
-          >
-            Customize the agent by ticking features on/off and specify task
-            workflows
+      <div className="flex-1 px-6 py-8" style={{ background: "var(--color-neutral-50)" }}>
+        <div className="max-w-6xl mx-auto">
+          <p className="text-center font-medium mb-5" style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>
+            Customize the agent by ticking features on/off and specify task workflows
           </p>
 
           <div
-            className="bg-white rounded-2xl border border-neutral-200 overflow-hidden shadow-sm"
-            style={{ minHeight: 620 }}
+            className="rounded-2xl overflow-hidden shadow-sm"
+            style={{ border: "1.5px solid var(--color-neutral-200)", background: "#fff", minHeight: 700 }}
           >
             <iframe
               ref={iframeRef}
               src="/questionnaire.html"
               className="w-full border-0 block"
-              style={{ minHeight: 620 }}
+              style={{ minHeight: 700 }}
               title="SME Questionnaire"
             />
           </div>
@@ -185,8 +188,13 @@ export default function CreatePage() {
           <div className="flex justify-center mt-6">
             <button
               onClick={handleSaveAndTest}
-              className="border border-neutral-400 rounded-full px-8 py-2.5 font-medium text-neutral-700 bg-white hover:bg-neutral-50 transition-colors cursor-pointer shadow-sm"
-              style={{ fontSize: 14 }}
+              className="rounded-full px-8 py-2.5 font-semibold transition-colors cursor-pointer shadow-sm"
+              style={{
+                fontSize: 14,
+                background: "var(--color-primary-600)",
+                color: "#fff",
+                border: "none",
+              }}
             >
               Save and Test Agent
             </button>
