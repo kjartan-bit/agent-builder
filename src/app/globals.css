@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --color-primary-25:  #F9FCF8;
+  --color-primary-50:  #F1F8F0;
+  --color-primary-100: #E5F2E3;
+  --color-primary-200: #CBE5C7;
+  --color-primary-300: #B1D1A9;
+  --color-primary-400: #93BF87;
+  --color-primary-500: #65A354;
+  --color-primary-600: #4B793E;
+  --color-primary-700: #3A5E31;
+  --color-primary-800: #263D1F;
+  --color-primary-900: #1D2F18;
+  --color-primary-950: #111B0E;
+
+  --color-neutral-25:  #F6F6F6;
+  --color-neutral-50:  #F0F0F0;
+  --color-neutral-100: #EBEBEB;
+  --color-neutral-200: #D9D9D9;
+  --color-neutral-300: #C4C4C4;
+  --color-neutral-400: #ACACAC;
+  --color-neutral-500: #8C8C8C;
+  --color-neutral-600: #6F6F6F;
+  --color-neutral-700: #5E5E5E;
+  --color-neutral-800: #4B4B4B;
+  --color-neutral-900: #333333;
+  --color-neutral-950: #202020;
+
+  --font-size-label:       11px;
+  --font-size-text-xs:     12px;
+  --font-size-text-sm:     14px;
+  --font-size-text-md:     16px;
+  --font-size-text-lg:     18px;
+  --font-size-text-xl:     20px;
+  --font-size-display-xs:  24px;
+  --font-size-display-sm:  30px;
+  --font-size-display-md:  36px;
+  --font-size-display-lg:  48px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-neutral-25);
+  color: var(--color-neutral-950);
+  -webkit-font-smoothing: antialiased;
+}
