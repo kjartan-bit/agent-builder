@@ -43,6 +43,16 @@ export default function TestPage() {
         </nav>
 
         <div className="max-w-xl mx-auto text-center">
+          {/* Headline — display-xs bold */}
+          <h1
+            className="ds-display-xs-bold mb-6"
+            style={{ color: "#263238" }}
+          >
+            Test the Agent's Reliability and Compliance
+            <br />
+            While It Resolves Your Most Complex Tasks
+          </h1>
+
           {/* Agent selector */}
           <button
             className="ds-text-sm-medium inline-flex items-center gap-2 rounded-full px-5 py-2 mb-8 transition-colors cursor-pointer"
@@ -55,16 +65,6 @@ export default function TestPage() {
             {agentName}
             <span className="opacity-60 text-xs">▾</span>
           </button>
-
-          {/* Headline — display-xs bold */}
-          <h1
-            className="ds-display-xs-bold mb-8"
-            style={{ color: "#263238" }}
-          >
-            Test the Agent's Reliability and Compliance
-            <br />
-            While It Resolves Your Most Complex Tasks
-          </h1>
 
           {/* Mode buttons */}
           <div className="flex justify-center gap-4 mb-8">
@@ -88,20 +88,20 @@ export default function TestPage() {
             })}
           </div>
 
-          {/* iframe / placeholder */}
-          <div
-            className="ds-text-sm-regular rounded-2xl flex items-center justify-center italic"
-            style={{
-              minHeight: 160,
-              color: "var(--color-primary-600)",
-              border: "1.5px solid var(--color-primary-200)",
-              background: "var(--color-primary-25)",
-            }}
-          >
-            {activeTab === "talk" && "Voice integration coming soon"}
-            {activeTab === "chat" && "Chat integration coming soon"}
-            {!activeTab && "<iframe for both options>"}
-          </div>
+          {/* iframe — only shown after a button is clicked */}
+          {activeTab && (
+            <div
+              className="ds-text-sm-regular rounded-2xl flex items-center justify-center italic"
+              style={{
+                minHeight: 160,
+                color: "var(--color-primary-600)",
+                border: "1.5px solid var(--color-primary-200)",
+                background: "var(--color-primary-25)",
+              }}
+            >
+              {activeTab === "talk" ? "Voice integration coming soon" : "Chat integration coming soon"}
+            </div>
+          )}
         </div>
       </div>
 
