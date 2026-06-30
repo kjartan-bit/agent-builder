@@ -4,10 +4,19 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const PILLS = [
-  "Handles all calls at scale",
-  "Resolves the most complex tasks",
-  "Maintaining CSAT w/ AI Personas",
+const BENEFITS = [
+  {
+    title: "Handles all calls at scale",
+    desc: "Answers every inbound call instantly, 24/7, without queues or wait times.",
+  },
+  {
+    title: "Resolves the most complex tasks",
+    desc: "Navigates multi-step workflows and edge cases with specialist-level accuracy.",
+  },
+  {
+    title: "Maintaining CSAT w/ AI Personas",
+    desc: "Sounds human, stays on-brand, and keeps customer satisfaction scores high.",
+  },
 ];
 
 export default function CreatePage() {
@@ -72,55 +81,70 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-25)" }}>
+    <div className="min-h-screen flex flex-col" style={{ background: "var(--color-neutral-50)" }}>
 
-      {/* ── Hero ── */}
+      {/* ── Hero ── primary-600 = #4B793E (brand green for large surfaces) */}
       <div
-        style={{ background: "var(--color-primary-800)" }}
-        className="relative px-8 pt-6 pb-16 overflow-hidden"
+        style={{ background: "var(--color-primary-600)" }}
+        className="px-8 pt-6 pb-12"
       >
+        {/* Nav */}
         <nav className="flex items-center gap-5 mb-12">
-          <span className="text-white font-semibold" style={{ fontSize: 15 }}>Create</span>
-          <span className="text-white/30">|</span>
-          <Link href="/test" className="text-white/50 hover:text-white/80 transition-colors" style={{ fontSize: 15 }}>
+          <span className="font-semibold text-white" style={{ fontSize: 15 }}>Create</span>
+          <span style={{ color: "var(--color-primary-400)" }}>|</span>
+          <Link
+            href="/test"
+            className="transition-colors"
+            style={{ fontSize: 15, color: "var(--color-primary-200)" }}
+          >
             Test
           </Link>
         </nav>
 
-        <div className="absolute top-6 right-8 text-white/20 italic select-none" style={{ fontSize: 12 }}>
-          &lt;background graphics of Serena&gt;
-        </div>
-
-        <div className="max-w-2xl mx-auto text-center">
-          <h1 className="text-white font-bold mb-2" style={{ fontSize: 28, lineHeight: 1.3 }}>
-            Generate an 11Sight AI Agent to augment your workforce
+        <div className="max-w-3xl mx-auto">
+          {/* Headline */}
+          <h1
+            className="text-white font-bold mb-2"
+            style={{ fontSize: 30, lineHeight: 1.25 }}
+          >
+            Create an 11Sight AI Agent to augment your workforce
           </h1>
-          <p className="italic mb-8" style={{ fontSize: 16, color: "var(--color-primary-300)" }}>
-            -grounded in rigorous software engineering-
+
+          {/* Subheadline */}
+          <p
+            className="mb-8 italic"
+            style={{ fontSize: 16, color: "var(--color-primary-200)" }}
+          >
+            grounded in rigorous software engineering
           </p>
 
-          <div className="flex flex-wrap justify-center gap-2">
-            {PILLS.map((p) => (
-              <span
-                key={p}
-                className="border rounded-full px-4 py-1.5"
+          {/* Benefit boxes */}
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {BENEFITS.map((b) => (
+              <div
+                key={b.title}
+                className="rounded-xl p-4"
                 style={{
-                  fontSize: 13,
-                  color: "var(--color-primary-200)",
-                  borderColor: "var(--color-primary-600)",
-                  background: "var(--color-primary-900)",
+                  background: "var(--color-primary-700)",
+                  border: "1px solid var(--color-primary-500)",
                 }}
               >
-                {p}
-              </span>
+                <p
+                  className="font-semibold text-white mb-1"
+                  style={{ fontSize: 14, lineHeight: 1.35 }}
+                >
+                  {b.title}
+                </p>
+                <p
+                  style={{ fontSize: 12, lineHeight: 1.5, color: "var(--color-primary-300)" }}
+                >
+                  {b.desc}
+                </p>
+              </div>
             ))}
           </div>
-        </div>
-      </div>
 
-      {/* ── Prompt section ── */}
-      <div className="px-8 py-8" style={{ background: "var(--color-primary-900)" }}>
-        <div className="max-w-3xl mx-auto">
+          {/* Prompt */}
           <div className="relative">
             <textarea
               value={prompt}
@@ -136,18 +160,17 @@ export default function CreatePage() {
                 lineHeight: 1.6,
                 background: "#fff",
                 color: "var(--color-neutral-950)",
-                border: "1.5px solid var(--color-primary-700)",
+                border: "1.5px solid var(--color-primary-400)",
               }}
             />
             <button
               onClick={handleSubmit}
               disabled={loading || !prompt.trim()}
-              className="absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 font-semibold transition-colors cursor-pointer disabled:opacity-40"
+              className="absolute bottom-3.5 right-3.5 rounded-full px-5 py-1.5 font-semibold transition-all cursor-pointer disabled:opacity-40"
               style={{
                 fontSize: 13,
                 background: "var(--color-primary-500)",
                 color: "#fff",
-                border: "none",
               }}
             >
               {loading ? (
@@ -161,20 +184,29 @@ export default function CreatePage() {
               ) : "Submit"}
             </button>
           </div>
-          {error && <p className="mt-2 text-red-400" style={{ fontSize: 13 }}>{error}</p>}
+          {error && (
+            <p className="mt-2" style={{ fontSize: 13, color: "#fca5a5" }}>{error}</p>
+          )}
         </div>
       </div>
 
       {/* ── Questionnaire section ── */}
-      <div className="flex-1 px-6 py-8" style={{ background: "var(--color-neutral-50)" }}>
+      <div className="flex-1 px-6 py-8">
         <div className="max-w-6xl mx-auto">
-          <p className="text-center font-medium mb-5" style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>
+          <p
+            className="text-center font-medium mb-5"
+            style={{ fontSize: 15, color: "var(--color-neutral-600)" }}
+          >
             Customize the agent by ticking features on/off and specify task workflows
           </p>
 
           <div
             className="rounded-2xl overflow-hidden shadow-sm"
-            style={{ border: "1.5px solid var(--color-neutral-200)", background: "#fff", minHeight: 700 }}
+            style={{
+              border: "1.5px solid var(--color-neutral-200)",
+              background: "#fff",
+              minHeight: 700,
+            }}
           >
             <iframe
               ref={iframeRef}
@@ -193,7 +225,6 @@ export default function CreatePage() {
                 fontSize: 14,
                 background: "var(--color-primary-600)",
                 color: "#fff",
-                border: "none",
               }}
             >
               Save and Test Agent
