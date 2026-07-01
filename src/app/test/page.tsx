@@ -72,9 +72,10 @@ export default function TestPage() {
           <div className="flex justify-center mb-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/Serena%20for%20test%20page.png"
+              src="/new%20serena%20for%20test%20page.jpg"
               alt="Serena"
-              className="w-full max-w-sm rounded-2xl"
+              className="rounded-2xl"
+              style={{ maxHeight: 280, width: "auto" }}
             />
           </div>
 
