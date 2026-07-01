@@ -5,7 +5,7 @@ export default function Logo({ className, style }: { className?: string; style?:
       src="/11sightapplogo.png"
       alt="11Sight"
       className={className}
-      style={{ height: 32, width: "auto", display: "block", ...style }}
+      style={{ height: 64, width: "auto", display: "block", ...style }}
     />
   );
 }
