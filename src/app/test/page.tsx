@@ -31,7 +31,7 @@ export default function TestPage() {
 
       {/* ── Hero ── */}
       <div
-        style={{ background: "#ffffff", paddingBottom: 160 }}
+        style={{ background: "#ffffff", paddingBottom: 48 }}
         className="relative px-8 pt-6"
       >
         {/* Nav */}
