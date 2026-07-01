@@ -75,7 +75,7 @@ export default function TestPage() {
               src="/new%20serena%20for%20test%20page.jpg"
               alt="Serena"
               className="rounded-2xl"
-              style={{ maxHeight: 280, width: "auto" }}
+              style={{ maxHeight: 200, width: "auto" }}
             />
           </div>
 
