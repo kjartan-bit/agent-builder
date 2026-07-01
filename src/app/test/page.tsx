@@ -31,8 +31,8 @@ export default function TestPage() {
 
       {/* ── Hero ── */}
       <div
-        style={{ background: "#ffffff" }}
-        className="relative px-8 pt-6 pb-40 overflow-hidden"
+        style={{ background: "#ffffff", paddingBottom: 160 }}
+        className="relative px-8 pt-6"
       >
         {/* Nav */}
         <nav className="ds-text-sm-semibold relative flex items-center justify-center gap-5 mb-10">
