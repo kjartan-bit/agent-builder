@@ -114,7 +114,7 @@ export default function CreatePage() {
                 key={b.line1}
                 className="rounded-xl p-5 flex flex-col items-center justify-center text-center"
                 style={{
-                  background: "var(--color-primary-400)",
+                  background: "var(--color-primary-500)",
                   border: "1px solid #ffffff",
                   minHeight: 80,
                 }}
