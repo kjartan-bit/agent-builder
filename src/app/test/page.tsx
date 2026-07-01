@@ -105,39 +105,55 @@ export default function TestPage() {
 
       {/* ── Framework section ── */}
       <div className="flex-1 px-8 py-10" style={{ background: "var(--color-neutral-50)" }}>
-        <div className="max-w-2xl mx-auto">
-          <h2
-            className="ds-display-xs-semibold mb-6"
-            style={{ color: "var(--color-neutral-950)" }}
-          >
-            Controlled Onboarding Framework for Reliable and Compliant AI Voice Agents
-          </h2>
+        <div className="max-w-5xl mx-auto flex gap-10 items-start">
 
-          <ol className="space-y-4 mb-7">
-            {FRAMEWORK_STEPS.map((step, i) => (
-              <li
-                key={i}
-                className="ds-text-sm-regular flex gap-3"
-                style={{ color: "var(--color-neutral-700)" }}
-              >
-                <span
-                  className="ds-text-sm-bold shrink-0 w-5 text-right"
-                  style={{ color: "var(--color-primary-500)" }}
+          {/* Video — left */}
+          <div style={{ flex: "0 0 52%" }}>
+            <video
+              src="/platform%20gif%2011sight.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full rounded-xl"
+            />
+          </div>
+
+          {/* Framework — right */}
+          <div style={{ flex: 1 }}>
+            <h2
+              className="ds-display-xs-semibold mb-6"
+              style={{ color: "var(--color-neutral-950)" }}
+            >
+              Controlled Onboarding Framework for Reliable and Compliant AI Voice Agents
+            </h2>
+
+            <ol className="space-y-4 mb-7">
+              {FRAMEWORK_STEPS.map((step, i) => (
+                <li
+                  key={i}
+                  className="ds-text-sm-regular flex gap-3"
+                  style={{ color: "var(--color-neutral-700)" }}
                 >
-                  {i + 1}.
-                </span>
-                {step}
-              </li>
-            ))}
-          </ol>
+                  <span
+                    className="ds-text-sm-bold shrink-0 w-5 text-right"
+                    style={{ color: "var(--color-primary-500)" }}
+                  >
+                    {i + 1}.
+                  </span>
+                  {step}
+                </li>
+              ))}
+            </ol>
 
-          <a
-            href="#"
-            className="ds-text-sm-underlined"
-            style={{ color: "var(--color-primary-500)" }}
-          >
-            See all available features
-          </a>
+            <a
+              href="#"
+              className="ds-text-sm-underlined"
+              style={{ color: "var(--color-primary-500)" }}
+            >
+              See all available features
+            </a>
+          </div>
         </div>
       </div>
     </div>
