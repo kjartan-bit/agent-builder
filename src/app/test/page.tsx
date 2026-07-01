@@ -32,7 +32,7 @@ export default function TestPage() {
       {/* ── Hero ── */}
       <div
         style={{ background: "#ffffff" }}
-        className="relative px-8 pt-6 pb-14 overflow-hidden"
+        className="relative px-8 pt-6 pb-24 overflow-hidden"
       >
         {/* Nav */}
         <nav className="ds-text-sm-semibold relative flex items-center justify-center gap-5 mb-10">
@@ -72,7 +72,7 @@ export default function TestPage() {
           <div className="flex justify-center mb-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/new%20serena%20for%20test%20page.jpg"
+              src="/final%20serena%20for%20test%20page.png"
               alt="Serena"
               className="rounded-2xl"
               style={{ maxHeight: 200, width: "auto" }}
