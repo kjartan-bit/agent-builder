@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const BENEFITS = [
   { line1: "Handles All Calls", line2: "at Scale" },
   { line1: "Resolves the Most", line2: "Complex Tasks" },
-  { line1: "Maintaining CSAT", line2: "w/ AI Personas" },
+  { line1: "Maintaining CSAT with", line2: "AI Personas" },
 ];
 
 export default function CreatePage() {
@@ -112,7 +112,7 @@ export default function CreatePage() {
                 key={b.line1}
                 className="rounded-xl p-5 flex flex-col items-center justify-center text-center"
                 style={{
-                  background: "var(--color-primary-50)",
+                  background: "var(--color-primary-300)",
                   border: "1px solid #ffffff",
                   minHeight: 80,
                 }}
