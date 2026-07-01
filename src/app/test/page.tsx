@@ -68,6 +68,16 @@ export default function TestPage() {
             <span className="opacity-60 text-xs">▾</span>
           </button>
 
+          {/* Serena image */}
+          <div className="flex justify-center mb-8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Serena%20for%20test%20page.png"
+              alt="Serena"
+              className="w-full max-w-sm rounded-2xl"
+            />
+          </div>
+
           {/* Mode buttons */}
           <div className="flex justify-center gap-4 mb-8">
             {(["talk", "chat"] as const).map((tab) => (
