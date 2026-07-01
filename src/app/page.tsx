@@ -92,7 +92,7 @@ export default function CreatePage() {
           {/* Headline — display-sm bold */}
           <h1
             className="ds-display-sm-bold mb-2"
-            style={{ color: "#263238" }}
+            style={{ color: "var(--color-neutral-950)" }}
           >
             Create an 11Sight AI Agent to Augment Your Workforce
           </h1>
@@ -112,14 +112,14 @@ export default function CreatePage() {
                 key={b.line1}
                 className="rounded-xl p-5 flex flex-col items-center justify-center text-center"
                 style={{
-                  background: "var(--color-primary-300)",
+                  background: "var(--color-primary-400)",
                   border: "1px solid #ffffff",
                   minHeight: 80,
                 }}
               >
                 <p
                   className="ds-text-sm-semibold"
-                  style={{ color: "var(--color-primary-900)" }}
+                  style={{ color: "var(--color-neutral-25)" }}
                 >
                   {b.line1}<br />{b.line2}
                 </p>
