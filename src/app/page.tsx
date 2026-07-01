@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Logo from "@/components/Logo";
 
 const BENEFITS = [
   { line1: "Handles All Calls", line2: "at Scale" },
@@ -81,10 +80,7 @@ export default function CreatePage() {
         className="px-8 pt-6 pb-12"
       >
         {/* Nav */}
-        <nav className="ds-text-sm-semibold relative flex items-center justify-center gap-5 mb-12">
-          <div className="absolute left-0">
-            <Logo />
-          </div>
+        <nav className="ds-text-sm-semibold flex items-center justify-center gap-5 mb-12">
           <span style={{ color: "var(--color-primary-900)" }}>Create</span>
           <span style={{ color: "var(--color-primary-400)" }}>|</span>
           <Link href="/test" className="transition-colors" style={{ color: "var(--color-primary-700)" }}>
@@ -117,7 +113,7 @@ export default function CreatePage() {
                 className="rounded-xl p-5 flex flex-col items-center justify-center text-center"
                 style={{
                   background: "var(--color-primary-50)",
-                  border: "1px solid var(--color-primary-200)",
+                  border: "1px solid #ffffff",
                   minHeight: 80,
                 }}
               >
@@ -172,7 +168,7 @@ export default function CreatePage() {
       </div>
 
       {/* ── Questionnaire section ── */}
-      <div className="flex-1 px-6 py-8" style={{ background: "#ffffff" }}>
+      <div className="flex-1 px-6 py-8" style={{ background: "var(--color-neutral-50)" }}>
         <div className="max-w-6xl mx-auto">
           <p
             className="ds-text-md-medium text-center mb-5"
