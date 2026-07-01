@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 const FRAMEWORK_STEPS = [
   "Replace your IVR with the AI Front Desk agent that answers questions and route calls.",
@@ -34,7 +35,8 @@ export default function TestPage() {
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
         {/* Nav */}
-        <nav className="ds-text-sm-semibold flex items-center justify-center gap-5 mb-10">
+        <nav className="ds-text-sm-semibold relative flex items-center justify-center gap-5 mb-10">
+          <div className="absolute left-0"><Logo /></div>
           <Link href="/" className="transition-colors" style={{ color: "var(--color-primary-700)" }}>
             Create
           </Link>
