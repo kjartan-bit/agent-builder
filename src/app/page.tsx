@@ -76,7 +76,7 @@ export default function CreatePage() {
 
       {/* ── Hero ── */}
       <div
-        style={{ background: "var(--color-primary-100)" }}
+        style={{ background: "#ffffff" }}
         className="px-8 pt-6 pb-12"
       >
         {/* Nav */}

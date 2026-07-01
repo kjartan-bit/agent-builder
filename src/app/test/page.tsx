@@ -30,7 +30,7 @@ export default function TestPage() {
 
       {/* ── Hero ── */}
       <div
-        style={{ background: "var(--color-primary-100)" }}
+        style={{ background: "#ffffff" }}
         className="relative px-8 pt-6 pb-14 overflow-hidden"
       >
         {/* Nav */}
