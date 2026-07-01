@@ -7,7 +7,7 @@ import Logo from "@/components/Logo";
 
 const BENEFITS = [
   { line1: "Handles All Calls", line2: "at Scale" },
-  { line1: "Resolves the Most", line2: "Complex Tasks" },
+  { line1: "Resolves Sophisticated,", line2: "High-Stakes Tasks" },
   { line1: "Maintaining CSAT with", line2: "AI Personas" },
 ];
 
