@@ -32,7 +32,7 @@ export default function TestPage() {
       {/* ── Hero ── */}
       <div
         style={{ background: "#ffffff" }}
-        className="relative px-8 pt-6 pb-24 overflow-hidden"
+        className="relative px-8 pt-6 pb-40 overflow-hidden"
       >
         {/* Nav */}
         <nav className="ds-text-sm-semibold relative flex items-center justify-center gap-5 mb-10">
