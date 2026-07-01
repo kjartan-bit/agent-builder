@@ -105,7 +105,7 @@ export default function TestPage() {
 
       {/* ── Framework section ── */}
       <div className="flex-1 px-8 py-10" style={{ background: "var(--color-neutral-50)" }}>
-        <div className="max-w-5xl mx-auto flex gap-10 items-start">
+        <div className="max-w-5xl mx-auto flex gap-10 items-center">
 
           {/* Video — left */}
           <div style={{ flex: "0 0 52%" }}>
@@ -116,6 +116,7 @@ export default function TestPage() {
               muted
               playsInline
               className="w-full rounded-xl"
+              style={{ maxHeight: 400, objectFit: "cover" }}
             />
           </div>
 
