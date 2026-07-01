@@ -42,6 +42,18 @@ export default function TestPage() {
           </Link>
           <span style={{ color: "var(--color-primary-400)" }}>|</span>
           <span style={{ color: "var(--color-primary-900)" }}>Test</span>
+          <div className="absolute right-0">
+            <Link
+              href="/configure"
+              className="ds-text-sm-semibold rounded-full px-4 py-1.5 transition-colors cursor-pointer"
+              style={{
+                background: "var(--color-primary-500)",
+                color: "#fff",
+              }}
+            >
+              Configure Agent
+            </Link>
+          </div>
         </nav>
 
         <div className="max-w-xl mx-auto text-center">

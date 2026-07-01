@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Orchestration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400;1,14..32,500;1,14..32,600;1,14..32,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff; --card:#ffffff; --ink:#10231a; --ink-soft:#46584f; --ink-faint:#7c8c84;
+    --line:#e4e8e6; --line-2:#d2d8d5; --accent:#14a850; --accent-deep:#4ca749; --accent-soft:#e9f4ee;
+    --shadow:none; --radius:8px; --font:'Inter','Inter Fallback',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--font);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;font-size:14px;line-height:1.5;}
+  .wrap{display:flex;min-height:100vh;max-width:1240px;margin:0 auto;}
+
+  aside{width:260px;flex:0 0 260px;padding:34px 24px;border-right:1px solid var(--line);position:sticky;top:0;height:100vh;overflow-y:auto;}
+  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;}
+  .steps li{display:flex;align-items:center;gap:12px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:13.5px;color:var(--ink-soft);font-weight:500;transition:background .15s,color .15s;}
+  .steps li:hover{background:#F1F8F0;color:var(--ink);}
+  .steps li.active{background:#F1F8F0;color:var(--accent-deep);font-weight:600;}
+  .steps li.active .dot,.steps li.done .dot{background:var(--accent-deep);border-color:var(--accent-deep);color:#fff;}
+  .dot{width:23px;height:23px;flex:0 0 23px;border-radius:50%;border:1.5px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--ink-faint);transition:all .15s;}
+  .agent-tag{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-faint);line-height:1.5;}
+  .agent-tag b{display:block;color:var(--ink);font-size:13.5px;font-weight:600;margin-top:2px;}
+
+  main{flex:1;min-width:0;padding:46px 56px 120px;position:relative;}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep);font-weight:600;}
+  h1.step-title{font-weight:800;font-size:34px;line-height:1.08;letter-spacing:-.02em;margin:10px 0 8px;}
+  .step-lead{color:var(--ink-soft);font-size:14.5px;max-width:620px;line-height:1.55;margin:0 0 30px;}
+  #step-content{animation:fade .35s cubic-bezier(.2,.6,.2,1);}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+  .sec-head{margin:34px 0 16px;}
+  .sec-head:first-child{margin-top:0;}
+  .mono-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;border-bottom:1px solid var(--line);padding-bottom:8px;display:block;}
+  .sec-sub{font-size:13.5px;color:var(--ink-soft);margin:10px 0 0;line-height:1.5;}
+
+  .field{margin-bottom:20px;}
+  .flabel{font-size:14px;font-weight:600;margin-bottom:8px;display:block;color:var(--ink);}
+  .fhint{display:block;font-weight:400;font-size:12.5px;color:var(--ink-faint);margin-top:3px;line-height:1.45;}
+  .inp{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1.5px solid var(--line-2);border-radius:8px;padding:11px 13px;transition:border-color .15s,box-shadow .15s;outline:none;}
+  .inp::placeholder{color:var(--ink-faint);}
+  .inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+  .ta{resize:vertical;min-height:46px;line-height:1.5;}
+  select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2346584f' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:34px;cursor:pointer;}
+  .inp.small{padding:9px 11px;font-size:13.5px;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .reqsel{flex:0 0 132px;}
+
+  .chk{position:relative;display:inline-flex;cursor:pointer;flex:0 0 20px;}
+  .chk input{display:none;}
+  .chk span{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line-2);background:var(--card);display:block;transition:all .15s;}
+  .chk input:checked + span{background:var(--accent);border-color:var(--accent);}
+  .chk input:checked + span::after{content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);}
+  .chk-row{display:flex;align-items:center;gap:9px;padding:4px 0;}
+  .chk-row-label{font-size:13.5px;}
+
+  .task-card{border:1.5px solid var(--line-2);border-radius:var(--radius);padding:22px;margin-bottom:18px;background:var(--card);}
+  .task-card-head{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;}
+  .task-card-head-left{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .task-num{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#ffffff;padding:5px 10px;border-radius:7px;}
+  .action-tag{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-deep);background:var(--accent-soft);padding:4px 9px;border-radius:6px;}
+  .action-tag.muted{color:var(--ink-faint);background:var(--line);}
+
+  .sub-list{display:flex;flex-direction:column;gap:10px;}
+  .sub-item{display:flex;gap:10px;align-items:flex-start;}
+  .step-item{align-items:center;}
+  .step-index{flex:0 0 26px;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent-deep);font-weight:600;font-size:12px;display:flex;align-items:center;justify-content:center;margin-top:9px;}
+  .step-ctrls{display:flex;gap:4px;align-items:center;margin-top:8px;}
+  .icon-x{flex:0 0 30px;width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line-2);background:var(--card);color:var(--ink-faint);font-size:18px;line-height:1;cursor:pointer;margin-top:7px;transition:all .15s;}
+  .icon-x:hover{border-color:var(--accent);color:var(--accent);}
+  .icon-btn{width:28px;height:28px;border-radius:7px;border:1.5px solid var(--line-2);background:var(--card);color:var(--ink-soft);cursor:pointer;font-size:13px;transition:all .15s;}
+  .icon-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .add-btn{align-self:flex-start;background:transparent;border:1.5px dashed var(--line-2);color:var(--ink-soft);font-family:inherit;font-size:13px;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;transition:all .15s;margin-top:2px;}
+  .add-btn:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft);}
+  .big-add{width:100%;background:transparent;border:1.5px dashed var(--line-2);color:var(--ink-soft);font-family:inherit;font-size:14px;font-weight:600;padding:15px;border-radius:8px;cursor:pointer;transition:all .15s;}
+  .big-add:hover{border-color:var(--accent);color:var(--accent-deep);background:var(--accent-soft);}
+  .add-group-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;margin:24px 0 10px;}
+  .empty{padding:20px;border:1.5px dashed var(--line-2);border-radius:12px;color:var(--ink-faint);font-size:13.5px;text-align:center;margin-bottom:16px;}
+
+  .item-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border:1.5px solid var(--line-2);border-radius:8px;background:var(--card);margin-bottom:10px;cursor:pointer;transition:border-color .15s;}
+  .item-row:hover{border-color:var(--accent);}
+  .item-row-name{font-weight:600;font-size:14.5px;color:var(--ink);display:flex;align-items:center;gap:10px;min-width:0;}
+  .item-row-name::before{content:"✓";display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;flex:0 0 20px;}
+  .item-row-ctrls{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+  .item-row-edit{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);}
+
+  .ghost-btn{background:transparent;border:1.5px solid var(--line-2);font-family:inherit;font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:9px;cursor:pointer;color:var(--ink-soft);transition:all .15s;}
+  .ghost-btn:hover{border-color:var(--ink);color:var(--ink);}
+  .ghost-btn.danger:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+  .save-btn{color:var(--accent-deep);border-color:var(--accent);}
+  .save-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+  .banner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;border-radius:8px;margin-bottom:28px;background:var(--ink);color:#fff;}
+  .banner-title{font-weight:700;font-size:16.5px;}
+  .banner-sub{font-size:13px;color:rgba(255,255,255,.78);margin-top:3px;max-width:460px;line-height:1.45;}
+  .banner-btn{background:#fff;color:var(--ink);border-color:#fff;white-space:nowrap;flex:0 0 auto;}
+  .banner-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .overlay{position:fixed;inset:0;background:rgba(16,35,26,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .overlay.open{display:flex;}
+  .modal{background:var(--card);border-radius:16px;padding:26px;max-width:600px;width:100%;box-shadow:0 24px 60px -15px rgba(0,0,0,.45);animation:fade .3s ease;}
+  .modal h2{font-weight:800;font-size:21px;margin:0 0 8px;}
+  .modal p{font-size:13.5px;color:var(--ink-soft);margin:0 0 14px;line-height:1.55;}
+  .modal textarea{width:100%;min-height:150px;font-family:inherit;font-size:13px;color:var(--ink);border:1.5px solid var(--line-2);border-radius:12px;padding:13px;resize:vertical;outline:none;line-height:1.5;}
+  .modal textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+  .modal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:16px;}
+  .file-row{margin:12px 0;}
+
+  .note{background:var(--accent-soft);border:1px solid #cfe7d8;border-radius:8px;padding:14px 16px;font-size:13.5px;color:var(--accent-deep);line-height:1.5;margin-bottom:18px;}
+  .note b{font-weight:600;}
+
+  .term-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;border:1.5px solid var(--line-2);border-radius:10px;background:var(--card);margin-bottom:10px;cursor:pointer;transition:border-color .15s;}
+  .term-row:hover{border-color:var(--accent);}
+  .term-row-name{font-weight:700;font-size:14.5px;color:var(--ink);}
+  .term-chevron{color:var(--ink-faint);font-size:13px;}
+
+  .export-row{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 14px;}
+  .json-box{width:100%;font-size:12px;background:#10231a;color:#e6f0ea;border:none;border-radius:12px;padding:18px;min-height:200px;resize:vertical;line-height:1.55;font-family:ui-monospace,Menlo,Consolas,monospace;}
+
+  .nav{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:38px;padding-top:24px;border-top:1px solid var(--line);}
+  .btn{font-family:inherit;font-size:14.5px;font-weight:600;padding:12px 24px;border-radius:8px;cursor:pointer;border:1.5px solid transparent;transition:all .15s;}
+  .btn-primary{background:var(--ink);color:#ffffff;border-color:var(--ink);}
+  .btn-primary:hover{background:var(--accent-deep);border-color:var(--accent-deep);}
+  .btn-ghost{background:transparent;border-color:var(--line-2);color:var(--ink-soft);}
+  .btn-ghost:hover{border-color:var(--ink);color:var(--ink);}
+  .btn-ghost:disabled{opacity:.35;cursor:not-allowed;}
+  .btn-accent{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .btn-accent:hover{background:var(--accent-deep);border-color:var(--accent-deep);}
+
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#ffffff;padding:12px 22px;border-radius:11px;font-size:13.5px;font-weight:500;opacity:0;pointer-events:none;transition:all .3s;z-index:50;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width:860px){
+    .wrap{flex-direction:column;}
+    aside{position:static;width:100%;height:auto;border-right:none;border-bottom:1px solid var(--line);padding:20px;}
+    .steps{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:4px;}
+    .steps li{flex:0 0 auto;font-size:0;padding:8px;gap:0;}
+    .steps li .label{display:none;}
+    .agent-tag{display:none;}
+    main{padding:26px 20px 100px;}
+    h1.step-title{font-size:26px;}
+    .two-col{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside>
+    <ul class="steps" id="step-nav"></ul>
+    <div class="agent-tag" id="agent-tag" style="display:none">Configuring orchestration for<b id="agent-tag-name"></b></div>
+  </aside>
+  <main>
+    <div id="step-content"></div>
+    <div class="nav">
+      <button class="btn btn-ghost" id="back-btn">← Back</button>
+      <button class="btn btn-primary" id="next-btn">Continue →</button>
+    </div>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ============================ CONSTANTS ============================ */
+const STEPS = [
+  {key:'sequences',      title:'Common Sequences'},
+  {key:'integrations',   title:'Integrations'},
+  {key:'vocabulary',     title:'Agent Vocabulary'},
+  {key:'identification', title:'Identification'}
+];
+const SEQ_CATEGORIES = ['Task Workflow','Call Transfer','Verification','Custom'];
+const INTEGRATION_TYPES = ['AI Model','SOR API','CRM API','Telephony','Messaging','Knowledge Base','Data Source','Calendar','Payments','Analytics','Other'];
+const DATA_TYPES = ['string','number','boolean','date','datetime','enum','currency'];
+const HTTP_METHODS = ['GET','POST','PUT','PATCH','DELETE'];
+
+let uidN = 1;
+function uid(){ return 'id'+(uidN++); }
+
+/* ============================ STATE ============================ */
+const state = {
+  step: 0,
+  agentName: '',
+  sequences: [],
+  integrations: [],
+  vocabulary: [],
+  identification: {dealershipId:'', fein:'', departments:[]}
+};
+
+const TEMPLATES = {
+  sequence: () => ({id:uid(), name:'', category:'Custom', source:'custom', saved:false,
+    steps:[{instruction:'', requirement:'mandatory'}], relatedTask:''}),
+  integration: () => ({id:uid(), name:'', type:'', source:'custom', saved:false, notes:'',
+    relatedSequences:[], endpoints:[]}),
+  endpoint: () => ({method:'GET', url:'', auth:'', sampleRequest:'', sampleResponse:'', errors:''}),
+  wfstep: () => ({instruction:'', requirement:'mandatory'}),
+  vocab: (category) => ({id:uid(), category:category||'gathered', source:'custom', saved:false,
+    parameter:'', paramKey:'', dataType:'', apiSource:'', fieldPath:'', places:[]}),
+  place: () => ({seqId:'', stepIdx:''}),
+  department: () => ({id:uid(), name:'', deptId:'', source:'custom'})
+};
+
+/* ============================ PATH HELPERS ============================ */
+function k(key){ return /^\d+$/.test(key) ? parseInt(key,10) : key; }
+function getByPath(obj, path){ return path.split('.').reduce((o,key)=> (o==null ? undefined : o[k(key)]), obj); }
+function setByPath(obj, path, value){
+  const keys = path.split('.'); let o = obj;
+  for(let i=0;i<keys.length-1;i++){ o = o[k(keys[i])]; }
+  o[k(keys[keys.length-1])] = value;
+}
+function esc(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function findSeqIndex(id){ return state.sequences.findIndex(s=>s.id===id); }
+function findIntIndex(id){ return state.integrations.findIndex(s=>s.id===id); }
+
+/* ============================ FIELD BUILDERS ============================ */
+function field(label, control, hint){
+  return `<div class="field"><label class="flabel">${esc(label)}${hint?`<span class="fhint">${esc(hint)}</span>`:''}</label>${control}</div>`;
+}
+function tIn(path, ph){ return `<input class="inp" data-bind="${path}" value="${esc(getByPath(state,path))}" placeholder="${esc(ph||'')}">`; }
+function tInSmall(path, ph){ return `<input class="inp small" data-bind="${path}" value="${esc(getByPath(state,path))}" placeholder="${esc(ph||'')}">`; }
+function tArea(path, ph, rows){ return `<textarea class="inp ta" rows="${rows||2}" data-bind="${path}" placeholder="${esc(ph||'')}">${esc(getByPath(state,path))}</textarea>`; }
+function sel(path, options, ph, cls){
+  const v = getByPath(state,path)||'';
+  let o = `<option value="" ${v===''?'selected':''} disabled hidden>${esc(ph||'Select…')}</option>`;
+  options.forEach(opt=>{ o += `<option value="${esc(opt)}" ${v===opt?'selected':''}>${esc(opt)}</option>`; });
+  return `<select class="inp${cls?(' '+cls):''}" data-bind="${path}">${o}</select>`;
+}
+function selPairs(path, pairs, cls){
+  const v = getByPath(state,path)||'';
+  let o = '';
+  pairs.forEach(p=>{ o += `<option value="${esc(p.value)}" ${String(v)===String(p.value)?'selected':''}>${esc(p.label)}</option>`; });
+  return `<select class="inp${cls?(' '+cls):''}" data-bind="${path}">${o}</select>`;
+}
+function section(title, sub){ return `<div class="sec-head"><span class="mono-eyebrow">${esc(title)}</span>${sub?`<p class="sec-sub">${esc(sub)}</p>`:''}</div>`; }
+function sourceTag(source){ return `<span class="action-tag ${source==='derived'?'':'muted'}">${source==='derived'?'Derived':'Custom'}</span>`; }
+
+function workflowStepsBlock(base, steps){
+  let sH = `<div class="sub-list">`;
+  (steps||[]).forEach((s,si)=>{
+    sH += `<div class="sub-item step-item"><span class="step-index" style="margin-top:0">${si+1}</span>`+
+      `<input class="inp small" style="flex:1" data-bind="${base}.${si}.instruction" value="${esc(s.instruction)}" placeholder="Workflow step">`+
+      `<select class="inp small reqsel" data-bind="${base}.${si}.requirement"><option value="mandatory" ${s.requirement==='mandatory'?'selected':''}>Mandatory</option><option value="optional" ${s.requirement==='optional'?'selected':''}>Optional</option></select>`+
+      `<div class="step-ctrls"><button class="icon-btn" data-action="move-item" data-target="${base}" data-index="${si}" data-dir="up">↑</button><button class="icon-btn" data-action="move-item" data-target="${base}" data-index="${si}" data-dir="down">↓</button><button class="icon-x" data-action="remove-item" data-target="${base}" data-index="${si}">×</button></div></div>`;
+  });
+  sH += `<button class="add-btn" data-action="add-item" data-target="${base}" data-kind="wfstep">+ Add step</button></div>`;
+  return field('Workflow steps', sH, 'Order the steps, and mark each one mandatory or optional.');
+}
+
+/* ============================ IMPORT / EXTRACTION ============================ */
+function detectVocabFromSequences(){
+  const bracketRe = /\[([^\]]+)\]/g;
+  const existingKeys = new Set(state.vocabulary.filter(v=>v.category==='gathered').map(v=>v.parameter.toLowerCase()));
+  const found = new Map();
+  state.sequences.forEach(s=>{
+    (s.steps||[]).forEach((st,si)=>{
+      let m; while((m=bracketRe.exec(st.instruction||''))){
+        const p = m[1].trim(); if(!p) continue;
+        const key = p.toLowerCase();
+        if(!found.has(key)) found.set(key, {parameter:p, places:[]});
+        const entry = found.get(key);
+        if(!entry.places.find(pl=>pl.seqId===s.id && pl.stepIdx===si)) entry.places.push({seqId:s.id, stepIdx:si});
+      }
+    });
+  });
+  let added = 0;
+  found.forEach((v,key)=>{
+    if(existingKeys.has(key)) return;
+    state.vocabulary.push({id:uid(), category:'gathered', source:'derived', saved:true,
+      parameter:v.parameter, paramKey:'', dataType:'', apiSource:'', fieldPath:'', places:v.places});
+    added++;
+  });
+  render();
+  toast(added ? `Added ${added} new parameter${added===1?'':'s'} ✓` : 'No new parameters found');
+}
+
+/* ============================ RENDERERS ============================ */
+
+function seqCardExpanded(s, i){
+  const path = `sequences.${i}`;
+  let h = `<div class="task-card"><div class="task-card-head"><div class="task-card-head-left"><span class="task-num">${esc(s.category)}</span>${sourceTag(s.source)}</div><button class="ghost-btn danger" data-action="remove-item" data-target="sequences" data-index="${i}">Remove</button></div>`;
+  h += field('Sequence name', tIn(`${path}.name`,'e.g. Schedule appointment'));
+  h += field('Category', sel(`${path}.category`, SEQ_CATEGORIES));
+  if(s.relatedTask) h += `<p class="fhint" style="margin:-10px 0 16px">Deduced from task "${esc(s.relatedTask)}" in the SME Questionnaire.</p>`;
+  h += workflowStepsBlock(`${path}.steps`, s.steps);
+  h += `<div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="ghost-btn save-btn" data-action="save-seq" data-id="${s.id}">✓ Save sequence</button></div>`;
+  h += `</div>`;
+  return h;
+}
+function seqRow(s, i){
+  return `<div class="item-row" data-action="edit-seq" data-id="${s.id}"><span class="item-row-name">${esc(s.name||'(unnamed sequence)')}</span><span class="item-row-ctrls">${sourceTag(s.source)}<span class="item-row-edit">Edit</span><button class="icon-x" style="margin-top:0" data-action="remove-item" data-target="sequences" data-index="${i}">×</button></span></div>`;
+}
+function renderSequences(){
+  let h = section('Common Sequences','Reusable, step-by-step workflows deduced from the SME Questionnaire — appointment scheduling, transfers, verification, and anything else the agent does repeatedly. Edit them here; integrations and vocabulary below can reference them.');
+  if(!state.sequences.length){
+    h += `<div class="empty">No sequences yet. Add one manually below.</div>`;
+  }
+  SEQ_CATEGORIES.forEach(cat=>{
+    const rows = state.sequences.map((s,i)=>({s,i})).filter(x=>x.s.category===cat);
+    if(!rows.length) return;
+    h += `<div class="add-group-label">${esc(cat)}</div>`;
+    rows.forEach(({s,i})=>{ h += s.saved ? seqRow(s,i) : seqCardExpanded(s,i); });
+  });
+  h += `<div style="margin-top:8px"><button class="big-add" data-action="add-seq">+ Add custom sequence</button></div>`;
+  return h;
+}
+
+function intCardExpanded(t, i){
+  const path = `integrations.${i}`;
+  let h = `<div class="task-card"><div class="task-card-head"><div class="task-card-head-left"><span class="task-num">${t.type?esc(t.type):'Integration'}</span>${sourceTag(t.source)}</div><button class="ghost-btn danger" data-action="remove-item" data-target="integrations" data-index="${i}">Remove</button></div>`;
+  h += field('Integration name', tIn(`${path}.name`,'e.g. Dealer CRM API'));
+  h += field('Type', sel(`${path}.type`, INTEGRATION_TYPES));
+  h += field('What is it for?', tArea(`${path}.notes`,'How and why the agent needs this to fulfil its sequences'));
+  // related sequences
+  let rs = `<div class="sub-list">`;
+  if(!state.sequences.length){ rs += `<p class="fhint" style="margin:0">No sequences defined yet — add some in Common Sequences first.</p>`; }
+  state.sequences.forEach(sq=>{
+    const on = (t.relatedSequences||[]).includes(sq.id);
+    rs += `<label class="chk-row"><span class="chk"><input type="checkbox" data-action="toggle-related-seq" data-int-id="${t.id}" data-seq-id="${sq.id}" ${on?'checked':''}><span></span></span><span class="chk-row-label">${esc(sq.name||'(unnamed sequence)')} <span class="fhint" style="display:inline">· ${esc(sq.category)}</span></span></label>`;
+  });
+  rs += `</div>`;
+  h += field('Which sequences need this?', rs, 'Tick every sequence that relies on this tool or system.');
+  // endpoints
+  let eH = `<div class="sub-list">`;
+  (t.endpoints||[]).forEach((ep,ei)=>{
+    eH += `<div class="task-card" style="padding:16px;margin-bottom:0"><div class="task-card-head"><span class="task-num">Endpoint ${ei+1}</span><button class="icon-x" style="margin-top:0" data-action="remove-item" data-target="${path}.endpoints" data-index="${ei}">×</button></div>`+
+      `<div class="two-col">${field('Method', sel(`${path}.endpoints.${ei}.method`, HTTP_METHODS))}${field('URL / operation', tInSmall(`${path}.endpoints.${ei}.url`,'e.g. POST /v1/appointments'))}</div>`+
+      field('Auth', tInSmall(`${path}.endpoints.${ei}.auth`,'e.g. Bearer token, API key header'))+
+      field('Sample request', tArea(`${path}.endpoints.${ei}.sampleRequest`,'{ "customer_id": "...", "slot": "..." }'))+
+      field('Sample response', tArea(`${path}.endpoints.${ei}.sampleResponse`,'{ "status": "confirmed" }'))+
+      field('Known errors / edge cases', tArea(`${path}.endpoints.${ei}.errors`,'e.g. 409 if slot no longer available'))+
+      `</div>`;
+  });
+  eH += `<button class="add-btn" data-action="add-item" data-target="${path}.endpoints" data-kind="endpoint">+ Add endpoint</button></div>`;
+  h += field('Endpoints', eH, 'Document how the agent actually calls this integration.');
+  h += `<div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="ghost-btn save-btn" data-action="save-int" data-id="${t.id}">✓ Save integration</button></div>`;
+  h += `</div>`;
+  return h;
+}
+function intRow(t, i){
+  return `<div class="item-row" data-action="edit-int" data-id="${t.id}"><span class="item-row-name">${esc(t.name||'(unnamed integration)')}</span><span class="item-row-ctrls">${sourceTag(t.source)}<span class="action-tag muted">${esc(t.type||'—')}</span><span class="item-row-edit">Edit</span><button class="icon-x" style="margin-top:0" data-action="remove-item" data-target="integrations" data-index="${i}">×</button></span></div>`;
+}
+function renderIntegrations(){
+  let h = section('Integrations','Where and how the agent needs to connect to fulfil the sequences above — CRMs, systems of record, telephony, messaging, knowledge sources. Link each one to the sequences it supports.');
+  if(!state.sequences.length){
+    h += `<div class="note">You haven't defined any sequences yet. Add one in <b>Common Sequences</b> first so you can link integrations to it.</div>`;
+  }
+  if(!state.integrations.length){
+    h += `<div class="empty">No integrations yet. Add one manually below.</div>`;
+  }
+  state.integrations.forEach((t,i)=>{ h += t.saved ? intRow(t,i) : intCardExpanded(t,i); });
+  h += `<div style="margin-top:8px"><button class="big-add" data-action="add-int">+ Add integration</button></div>`;
+  return h;
+}
+
+const VOCAB_CATEGORIES = [
+  {key:'input',       label:'Input',       desc:'Parameters known before the call (e.g. from the calling unit).'},
+  {key:'gathered',    label:'Gathered',    desc:'Parameters the agent collects during the conversation.'},
+  {key:'integration', label:'Integration', desc:'Parameters provided by a connected API.'}
+];
+function vocabRowCollapsed(v, i){
+  return `<div class="term-row" data-action="edit-vocab" data-index="${i}"><span class="term-row-name">${esc(v.parameter||'(unnamed term)')}</span><span class="term-chevron">⌄</span></div>`;
+}
+function vocabCardExpanded(v, i){
+  const path = `vocabulary.${i}`;
+  let h = `<div class="task-card">`;
+  h += field('Term', tIn(`${path}.parameter`,'e.g. Caller name'));
+  h += field('Parameter', tInSmall(`${path}.paramKey`,'e.g. caller_name'), 'The variable name used to reference this value in prompts and API calls.');
+  h += field('Type', selPairs(`${path}.dataType`, [{value:'',label:'Select…'}].concat(DATA_TYPES.map(d=>({value:d,label:d})))));
+  const intgPairs = [{value:'',label:'None'}].concat(state.integrations.filter(t=>t.name).map(t=>({value:t.id,label:t.name})));
+  h += field('API source', selPairs(`${path}.apiSource`, intgPairs), 'Which connected API provides this parameter (configure APIs in Integrations).');
+  if(v.apiSource){
+    h += field('Field path', tInSmall(`${path}.fieldPath`,'e.g. customer.phone'), 'The field or path in the API request/response this maps to.');
+  }
+  let pH = `<div class="sub-list">`;
+  if(!state.sequences.length){ pH += `<p class="fhint" style="margin:0">No sequences defined yet — add some in Common Sequences first.</p>`; }
+  state.sequences.forEach(sq=>{
+    const pi = (v.places||[]).findIndex(pl=>pl.seqId===sq.id);
+    const on = pi>-1;
+    pH += `<label class="chk-row"><span class="chk"><input type="checkbox" data-action="toggle-vocab-place" data-vocab-index="${i}" data-seq-id="${sq.id}" ${on?'checked':''}><span></span></span><span class="chk-row-label">${esc(sq.name||'(unnamed sequence)')} <span class="fhint" style="display:inline">· ${esc(sq.category)}</span></span></label>`;
+    if(on && (sq.steps||[]).length){
+      const stepPairs = [{value:'',label:'Pick the step'}].concat(sq.steps.map((st,si)=>({value:String(si), label:`Step ${si+1}: ${st.instruction}`})));
+      pH += `<div style="margin:2px 0 6px 32px">${selPairs(`${path}.places.${pi}.stepIdx`, stepPairs)}</div>`;
+    }
+  });
+  pH += `</div>`;
+  h += field('Where it belongs?', pH, 'Attach the term to one or more places. If it belongs to a task with steps, also pick the step.');
+  h += `<div style="display:flex;justify-content:flex-end;gap:10px;margin-top:8px">`+
+       `<button class="ghost-btn save-btn" data-action="save-vocab" data-index="${i}">✓ Done</button>`+
+       `<button class="ghost-btn danger" data-action="remove-item" data-target="vocabulary" data-index="${i}">×</button>`+
+       `</div>`;
+  h += `</div>`;
+  return h;
+}
+function renderVocabulary(){
+  let h = section('Agent Vocabulary','Declare the parameter vocabulary the agent uses in its conversations, and connect each term to the API that provides or receives it.');
+  h += `<div style="margin-bottom:8px"><button class="ghost-btn" data-action="detect-vocab">↻ Detect parameters from sequences</button></div>`;
+  VOCAB_CATEGORIES.forEach(cat=>{
+    h += `<div class="sec-head" style="margin-top:30px"><span class="mono-eyebrow">${esc(cat.label)}</span><p class="sec-sub">${esc(cat.desc)}</p></div>`;
+    const rows = state.vocabulary.map((v,i)=>({v,i})).filter(x=>x.v.category===cat.key);
+    if(!rows.length){ h += `<div class="empty">No ${cat.label.toLowerCase()} terms yet.</div>`; }
+    rows.forEach(({v,i})=>{ h += v.saved ? vocabRowCollapsed(v,i) : vocabCardExpanded(v,i); });
+    h += `<button class="add-btn" data-action="add-vocab" data-cat="${cat.key}">+ Add term</button>`;
+  });
+  return h;
+}
+
+function renderIdentification(){
+  let h = section('Identification','Details we need to identify this agent and its call activity in downstream reporting and routing.');
+  h += field('Identification number (dealership ID)', tIn('identification.dealershipId','e.g. 48213'), 'We need this for inbound call reporting.');
+  h += field('Federal Employer Identification Number (FEIN)', tIn('identification.fein','e.g. 12-3456789'));
+  h += `<div class="add-group-label">Department IDs</div>`;
+  if(!state.identification.departments.length){
+    h += `<div class="empty">No departments yet. Add one manually below.</div>`;
+  } else {
+    h += `<div class="sub-list">`;
+    state.identification.departments.forEach((d,i)=>{
+      const path = `identification.departments.${i}`;
+      h += `<div class="sub-item">`+
+        `<div class="two-col" style="flex:1">${tInSmall(`${path}.name`,'Department name')}${tInSmall(`${path}.deptId`,'Department ID')}</div>`+
+        `<button class="icon-x" data-action="remove-item" data-target="identification.departments" data-index="${i}">×</button>`+
+        `</div>`;
+    });
+    h += `</div>`;
+  }
+  h += `<div style="margin:10px 0 0"><button class="add-btn" data-action="add-dept">+ Add department</button></div>`;
+  h += `<div class="export-row"><button class="btn btn-accent" id="dl-btn">↓ Download JSON</button><button class="btn btn-ghost" id="copy-btn">Copy JSON</button></div>`;
+  h += `<label class="flabel">Full orchestration config (JSON)</label><textarea class="json-box" id="json-box" readonly>${esc(exportJSON())}</textarea>`;
+  return h;
+}
+
+function exportJSON(){
+  const out = {agentName: state.agentName, sequences: state.sequences, integrations: state.integrations, vocabulary: state.vocabulary, identification: state.identification};
+  return JSON.stringify(out, null, 2);
+}
+
+const RENDERERS = [renderSequences, renderIntegrations, renderVocabulary, renderIdentification];
+
+/* ============================ ACTIONS ============================ */
+function addItem(path, kind){ const arr = getByPath(state, path); arr.push(TEMPLATES[kind]()); render(); }
+function removeItem(path, index){ const arr = getByPath(state, path); arr.splice(index,1); render(); }
+function moveItem(path, index, dir){
+  const arr = getByPath(state, path);
+  const ni = dir==='up' ? index-1 : index+1;
+  if(ni<0 || ni>=arr.length) return;
+  [arr[index], arr[ni]] = [arr[ni], arr[index]];
+  render();
+}
+function addSeq(){ state.sequences.push(TEMPLATES.sequence()); render(); }
+function addInt(){ state.integrations.push(TEMPLATES.integration()); render(); }
+function addVocab(cat){ state.vocabulary.push(TEMPLATES.vocab(cat)); render(); }
+function saveVocab(i){
+  const v = state.vocabulary[i]; if(!v) return;
+  if(!v.parameter || !v.parameter.trim()){ toast('Name the term first'); return; }
+  v.saved = true; render();
+}
+function saveSeq(id){
+  const i = findSeqIndex(id); const s = state.sequences[i]; if(!s) return;
+  if(!s.name || !s.name.trim()){ toast('Name the sequence first'); return; }
+  s.saved = true; render();
+}
+function saveInt(id){
+  const i = findIntIndex(id); const t = state.integrations[i]; if(!t) return;
+  if(!t.name || !t.name.trim()){ toast('Name the integration first'); return; }
+  t.saved = true; render();
+}
+function toggleRelatedSeq(intId, seqId){
+  const t = state.integrations[findIntIndex(intId)]; if(!t) return;
+  t.relatedSequences = t.relatedSequences || [];
+  const idx = t.relatedSequences.indexOf(seqId);
+  if(idx>-1) t.relatedSequences.splice(idx,1); else t.relatedSequences.push(seqId);
+  render();
+}
+function toggleVocabPlace(vi, seqId){
+  const v = state.vocabulary[vi]; if(!v) return;
+  v.places = v.places || [];
+  const idx = v.places.findIndex(p=>p.seqId===seqId);
+  if(idx>-1) v.places.splice(idx,1); else v.places.push({seqId, stepIdx:''});
+  render();
+}
+
+/* ============================ RENDER & BIND ============================ */
+function render(){
+  document.getElementById('step-content').innerHTML = RENDERERS[state.step]();
+  buildNav();
+  const back = document.getElementById('back-btn');
+  const next = document.getElementById('next-btn');
+  back.disabled = state.step===0;
+  next.style.display = state.step===STEPS.length-1 ? 'none' : '';
+  const tag = document.getElementById('agent-tag');
+  if(state.agentName){ tag.style.display='block'; document.getElementById('agent-tag-name').textContent = state.agentName; }
+  bindInputs();
+  bindExport();
+  if(state.step !== render._lastStep){ window.scrollTo({top:0, behavior:'smooth'}); render._lastStep = state.step; }
+}
+function buildNav(){
+  const nav = document.getElementById('step-nav');
+  nav.innerHTML = STEPS.map((s,i)=>{
+    const cls = i===state.step?'active':(i<state.step?'done':'');
+    const inner = i<state.step ? `<svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.2 2.3L9.5 3.5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>` : (i+1);
+    return `<li class="${cls}" data-step="${i}"><span class="dot">${inner}</span><span class="label">${esc(s.title)}</span></li>`;
+  }).join('');
+}
+function bindInputs(){
+  document.querySelectorAll('#step-content [data-bind]').forEach(elm=>{
+    const path = elm.dataset.bind;
+    const evt = elm.tagName==='SELECT' ? 'change' : 'input';
+    elm.addEventListener(evt, e=>{ setByPath(state, path, e.target.value); if(elm.tagName==='SELECT') render(); });
+  });
+}
+function bindExport(){
+  const dl = document.getElementById('dl-btn');
+  if(dl){
+    dl.onclick = ()=>{
+      const blob = new Blob([exportJSON()], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = (state.agentName?state.agentName.replace(/\s+/g,'-').toLowerCase():'agent')+'-orchestration.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      toast('Downloaded ✓');
+    };
+  }
+  const cp = document.getElementById('copy-btn');
+  if(cp){
+    cp.onclick = async ()=>{
+      const txt = exportJSON();
+      try{ await navigator.clipboard.writeText(txt); toast('Copied to clipboard ✓'); }
+      catch(e){ const box = document.getElementById('json-box'); box.focus(); box.select(); try{document.execCommand('copy'); toast('Copied ✓');}catch(_){ toast('Select the JSON below to copy'); } }
+    };
+  }
+}
+let toastTimer;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+/* ============================ NAV WIRING ============================ */
+document.getElementById('back-btn').addEventListener('click', ()=>{ if(state.step>0){ state.step--; render(); } });
+document.getElementById('next-btn').addEventListener('click', ()=>{ if(state.step<STEPS.length-1){ state.step++; render(); } });
+document.getElementById('step-nav').addEventListener('click', e=>{
+  const li = e.target.closest('li'); if(!li) return;
+  state.step = parseInt(li.dataset.step,10); render();
+});
+document.getElementById('step-content').addEventListener('click', e=>{
+  const btn = e.target.closest('[data-action]'); if(!btn) return;
+  const a = btn.dataset.action;
+  if(a==='add-item') addItem(btn.dataset.target, btn.dataset.kind);
+  else if(a==='remove-item') removeItem(btn.dataset.target, parseInt(btn.dataset.index,10));
+  else if(a==='move-item') moveItem(btn.dataset.target, parseInt(btn.dataset.index,10), btn.dataset.dir);
+  else if(a==='add-seq') addSeq();
+  else if(a==='add-int') addInt();
+  else if(a==='add-vocab') addVocab(btn.dataset.cat);
+  else if(a==='save-vocab') saveVocab(parseInt(btn.dataset.index,10));
+  else if(a==='edit-vocab'){ const v=state.vocabulary[parseInt(btn.dataset.index,10)]; if(v){ v.saved=false; render(); } }
+  else if(a==='add-dept'){ state.identification.departments.push(TEMPLATES.department()); render(); }
+  else if(a==='save-seq') saveSeq(btn.dataset.id);
+  else if(a==='save-int') saveInt(btn.dataset.id);
+  else if(a==='edit-seq'){ const s=state.sequences[findSeqIndex(btn.dataset.id)]; if(s){ s.saved=false; render(); } }
+  else if(a==='edit-int'){ const t=state.integrations[findIntIndex(btn.dataset.id)]; if(t){ t.saved=false; render(); } }
+  else if(a==='toggle-related-seq') toggleRelatedSeq(btn.dataset.intId, btn.dataset.seqId);
+  else if(a==='toggle-vocab-place') toggleVocabPlace(parseInt(btn.dataset.vocabIndex,10), btn.dataset.seqId);
+  else if(a==='detect-vocab') detectVocabFromSequences();
+});
+
+render();
+</script>
+</body>
+</html>
